@@ -50,24 +50,12 @@ public class MainActivity extends AppCompatActivity
             TA.numbers[i] = String.format("%d", 5000 + i + 1);
         }
 
-
-
-
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Msg.show("ok");
-              /*
+        /*
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                         */
-            }
-        });
-
 
 
         fab.setOnTouchListener(new View.OnTouchListener() {
@@ -79,9 +67,14 @@ public class MainActivity extends AppCompatActivity
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction())
                 {   case MotionEvent.ACTION_UP :
-                    //if(event.getX()-x <10 )
-                    if(x2-x1>-10 && x2-x1<10 && y2-y1>-10 && y2-y1<10)
-                        Msg.show(String.format("%f",x2-x1));
+                    if(Math.abs(x2-x1)<10 && Math.abs(y2-y1)<10)
+
+                    {
+                       // Msg.show(String.format("%f", x2 - x1));
+
+                        OnFloatingButton();
+                    }
+
                     return true;
                     case MotionEvent.ACTION_MOVE:
 
@@ -94,6 +87,7 @@ public class MainActivity extends AppCompatActivity
                         x = event.getX();
                         y = event.getY();
                         x1=fab.getX()+event.getX()-x; y1=fab.getY()+event.getY()-y;
+                        x2=fab.getX();y2=fab.getY();
                      //   x1=x;
                       //  y1=y;
                      //   Msg.show(String.format("%d",event.getX()));
@@ -146,15 +140,12 @@ public class MainActivity extends AppCompatActivity
         {
             Msg.show("ok");
 
-            // Fab change background color
-            //fab.setBackgroundTintList(getResources().getColorStateList(R.color.SecondBar));
-
-
+/*
             if(!StartAttendance) LL.setBackgroundColor(Color.RED);
             else LL.setBackgroundColor( getResources().getColor(R.color.SecondBar));
 
             StartAttendance=!StartAttendance;
-
+*/
 
 
             // Change FAB mail icon
@@ -202,6 +193,19 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    void OnFloatingButton()
+    {
+        if(!StartAttendance)
+            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPink));
+        else
+            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+
+        StartAttendance=!StartAttendance;
+
+    }
+
 
 
 }

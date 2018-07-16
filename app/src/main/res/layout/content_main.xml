@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
 
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/SecondBar"
+        android:background="@color/colorGreen"
         android:orientation="horizontal">
 
 
