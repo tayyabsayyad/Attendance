@@ -1,11 +1,13 @@
 package in.org.ilugbom.attendance;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +32,10 @@ public class MainActivity extends AppCompatActivity
     TextAdapter TA;
     Msg msg=new Msg();
     Model model;
+    CreateDivDialog CDD=new CreateDivDialog();
+   // HelpDialog HD=new HelpDialog();
+
+
 
     FloatingActionButton fab;
     boolean fabVisible=true;
@@ -156,7 +162,14 @@ public class MainActivity extends AppCompatActivity
 
             public void onClick(View view)
             {
-             Msg.show("Div Title");
+                CDD.editmode=true;
+                CDD.tempDivTitle=model.GetDivisionTitle(currentDivision);
+                String temp,temp2[];
+                temp=model.GetRollStartFinish(currentDivision);
+                temp2=temp.split("-");
+                CDD.tempFroll=temp2[0];
+                CDD.tempLroll=temp2[1];
+                CDD.showDialog(MainActivity.this);
             }
         });
 
@@ -183,6 +196,15 @@ public class MainActivity extends AppCompatActivity
                 DisplayDivision();
             }
         });
+
+        CDD.SetRef(model);
+        CDD.SetMA(this);
+//        msg.SetMA(this);
+
+        setTitle(model.GetDateTimeString());
+
+        CDD.LoadDivisionsFromPrefs();currentDivision=0;
+
 
         DisplayDivision();   //assert currentDivision=0;
 
@@ -217,8 +239,16 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
-            Msg.show("Settings");
+            //Msg.show("Settings");
+            CDD.editmode=false;
+            // Toast.makeText(getBaseContext(), "create", Toast.LENGTH_SHORT).show();
+            CDD.showDialog(MainActivity.this);
+            return true;
+        }
 
+        if (id == R.id.action_delete_div)
+        {
+            DeleteDivision();
             return true;
         }
 
@@ -261,15 +291,75 @@ public class MainActivity extends AppCompatActivity
 
         else {
             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-            Msg.show("Attendnace Saved");
+            String AL=GetAttendanceLine(); //current AAPAPAPP...
+            model.SaveList(AL);
             TA.selectedPositions.clear();
             DisplayDivision();
-
+            Msg.show("Attendnace Saved");
         }
 
         AttendanceInProgress=!AttendanceInProgress;
 
     }
+
+
+
+    String GetAttendanceLine()
+    {String Line="";
+        for(int i=0;i<TA.numbers.length;i++)
+        {Integer tt=new Integer(i);
+            if(TA.selectedPositions.contains(tt))
+                Line+="A";
+            else
+                Line+="P";
+        }
+        return Line;
+    }
+
+
+
+    void DeleteDivision()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Delete This Division ?");   // Set a title for alert dialog
+        //builder.setMessage("Test Message"); No Message required
+
+        // Set the alert dialog yes button click listener
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+                if(model.Divisions.size()>1)
+                {
+                    model.Divisions.remove(currentDivision);
+                    currentDivision--;
+                    if(currentDivision<0) currentDivision=0;
+                    DisplayDivision();
+                   // Toast.makeText(getApplicationContext(),
+                     //       "Division Deleted",Toast.LENGTH_LONG).show();
+                    Msg.show("Division Deleted");
+                    CDD.SaveDivisionsInPrefs();
+
+                }
+            }
+        });
+
+        // Set the alert dialog no button click listener
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing on No button clicked
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+    }
+
+
+
 
     void DisplayDivision()   //// Display division with index currentdivision
     {   TA.Divisions.clear();
