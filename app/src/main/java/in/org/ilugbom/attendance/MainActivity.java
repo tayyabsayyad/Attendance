@@ -17,10 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -31,14 +33,14 @@ public class MainActivity extends AppCompatActivity
 
     FloatingActionButton fab;
     boolean fabVisible=true;
-    boolean StartAttendance=false;
+    boolean AttendanceInProgress=false;
 
     private ImageButton  buttonLeft,  buttonRight;
     private Button buttonDivTitle;
 
     static  int currentDivision = 0;
 
-    LinearLayout LL;
+   // LinearLayout LL;
 
 
     @Override
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        LL = (LinearLayout) findViewById(R.id.ClassBar);
+      //  LL = (LinearLayout) findViewById(R.id.ClassBar);
 
 
         setSupportActionBar(toolbar);
@@ -63,6 +65,32 @@ public class MainActivity extends AppCompatActivity
 
         model  = new Model();
         model.LoadDivisions();
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+               if(!AttendanceInProgress) { Msg.show("Press Attendance Button"); return;}
+
+
+               // Attendance in  Progress
+                int firstPosition = gridView.getFirstVisiblePosition();
+                int childPosition = position - firstPosition;
+                TextView txtView = (TextView) gridView.getChildAt(childPosition);
+                Integer tt = new Integer(position);
+                if (TA.selectedPositions.contains(tt)) {
+                    txtView.setBackgroundColor(Color.parseColor("#fbdcbb"));
+                    TA.selectedPositions.remove(tt);
+                } else {
+                    txtView.setBackgroundColor(getResources().getColor(R.color.colorPink));
+                    TA.selectedPositions.add((Integer) position);
+                }
+            }
+        });
+
+
 
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -136,7 +164,8 @@ public class MainActivity extends AppCompatActivity
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {
+            {   if(AttendanceInProgress) { Msg.show("Attendance in Progress"); return; }
+
                 currentDivision--;
                 if (currentDivision < 0) currentDivision = model.Divisions.size() - 1;
                 DisplayDivision();
@@ -148,7 +177,7 @@ public class MainActivity extends AppCompatActivity
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {
+            { if(AttendanceInProgress){ Msg.show("Attendance in Progress"); return; }
                 currentDivision++;
                 if (currentDivision > model.Divisions.size() - 1) currentDivision = 0;
                 DisplayDivision();
@@ -225,12 +254,20 @@ public class MainActivity extends AppCompatActivity
 
     void OnFloatingButton()
     {
-        if(!StartAttendance)
+        if(!AttendanceInProgress) {
             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPink));
-        else
-            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+            Msg.show("Mark Attendance");
+        }
 
-        StartAttendance=!StartAttendance;
+        else {
+            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+            Msg.show("Attendnace Saved");
+            TA.selectedPositions.clear();
+            DisplayDivision();
+
+        }
+
+        AttendanceInProgress=!AttendanceInProgress;
 
     }
 
@@ -250,10 +287,10 @@ public class MainActivity extends AppCompatActivity
 
 
 /*
-            if(!StartAttendance) LL.setBackgroundColor(Color.RED);
+            if(!AttendanceInProgress) LL.setBackgroundColor(Color.RED);
             else LL.setBackgroundColor( getResources().getColor(R.color.SecondBar));
 
-            StartAttendance=!StartAttendance;
+            AttendanceInProgress=!AttendanceInProgress;
 */
 
 // Change FAB mail icon
