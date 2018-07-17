@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="300dp"
+    >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#6a87cf"
+        android:padding="20dp">
+        <EditText
+            android:id="@+id/division"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:hint="Enter Class Division"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:maxLines="1"
+            android:inputType="textCapCharacters"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#aeaeae"
+            >
+        </EditText>
+
+        <EditText
+            android:id="@+id/firstroll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Enter First Roll"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:inputType="textCapCharacters"
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#aeaeae"
+            >
+        </EditText>
+        <EditText
+            android:id="@+id/lastroll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Enter Last Roll"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#aeaeae"
+            >
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#ffffff"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_background"
+                android:text="Cancel"/>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-smallcaps"
+                android:textColor="#ffffff"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_background"
+                android:text="OK"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
+
+
+
+

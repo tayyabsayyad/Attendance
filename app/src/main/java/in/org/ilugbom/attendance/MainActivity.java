@@ -17,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity
@@ -25,9 +27,17 @@ public class MainActivity extends AppCompatActivity
 {
     TextAdapter TA;
     Msg msg=new Msg();
+    Model model;
+
     FloatingActionButton fab;
     boolean fabVisible=true;
     boolean StartAttendance=false;
+
+    private ImageButton  buttonLeft,  buttonRight;
+    private Button buttonDivTitle;
+
+    static  int currentDivision = 0;
+
     LinearLayout LL;
 
 
@@ -50,6 +60,11 @@ public class MainActivity extends AppCompatActivity
             TA.numbers[i] = String.format("%d", 5000 + i + 1);
         }
 
+
+        model  = new Model();
+        model.LoadDivisions();
+
+
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
         /*
@@ -70,8 +85,6 @@ public class MainActivity extends AppCompatActivity
                     if(Math.abs(x2-x1)<10 && Math.abs(y2-y1)<10)
 
                     {
-                       // Msg.show(String.format("%f", x2 - x1));
-
                         OnFloatingButton();
                     }
 
@@ -99,8 +112,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -109,7 +120,46 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
+
+//////////////////// Button Listeners ////////////////////////////////////
+
+        buttonDivTitle=findViewById(R.id.buttonDivTitle);
+        buttonDivTitle.setOnClickListener(new Button.OnClickListener() {
+
+            public void onClick(View view)
+            {
+             Msg.show("Div Title");
+            }
+        });
+
+        buttonLeft = (ImageButton) findViewById(R.id.buttonLeft);
+        buttonLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                currentDivision--;
+                if (currentDivision < 0) currentDivision = model.Divisions.size() - 1;
+                DisplayDivision();
+            }
+        });
+
+
+        buttonRight = (ImageButton) findViewById(R.id.buttonRight);
+        buttonRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                currentDivision++;
+                if (currentDivision > model.Divisions.size() - 1) currentDivision = 0;
+                DisplayDivision();
+            }
+        });
+
+        DisplayDivision();   //assert currentDivision=0;
+
+    }  ////////////////////////////////////////// END OF ONCREATE
+
+
 
     @Override
     public void onBackPressed() {
@@ -138,31 +188,8 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
-            Msg.show("ok");
+            Msg.show("Settings");
 
-/*
-            if(!StartAttendance) LL.setBackgroundColor(Color.RED);
-            else LL.setBackgroundColor( getResources().getColor(R.color.SecondBar));
-
-            StartAttendance=!StartAttendance;
-*/
-
-
-            // Change FAB mail icon
-            //fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_launcher_round2));
-
-            /*
-            hide and show FAB toggle
-
-            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            fab.setLayoutParams(p);
-            if(fabVisible) fab.setVisibility(View.GONE);
-            else
-                fab.setVisibility(View.VISIBLE);
-            fabVisible=!fabVisible;
-
-            */
             return true;
         }
 
@@ -192,6 +219,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+
     }
 
 
@@ -206,6 +234,40 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    void DisplayDivision()   //// Display division with index currentdivision
+    {   TA.Divisions.clear();
+        TA.DisplayDivision(model.Divisions.get(currentDivision));
+        buttonDivTitle.setText(model.GetDivisionTitle(currentDivision));
+    }
+
+}   /////CLASS END
 
 
-}
+
+///////////////////////// <<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>///////////////////////////////
+//////////////////////////<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>/////////////////////////////
+/////////////////////////// Extra Code  Snippets
+
+
+/*
+            if(!StartAttendance) LL.setBackgroundColor(Color.RED);
+            else LL.setBackgroundColor( getResources().getColor(R.color.SecondBar));
+
+            StartAttendance=!StartAttendance;
+*/
+
+// Change FAB mail icon
+//fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_launcher_round2));
+
+            /*
+            hide and show FAB toggle
+
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            fab.setLayoutParams(p);
+            if(fabVisible) fab.setVisibility(View.GONE);
+            else
+                fab.setVisibility(View.VISIBLE);
+            fabVisible=!fabVisible;
+
+            */
