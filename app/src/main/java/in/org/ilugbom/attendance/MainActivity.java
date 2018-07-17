@@ -295,7 +295,6 @@ public class MainActivity extends AppCompatActivity
             model.SaveList(AL);
             TA.selectedPositions.clear();
             DisplayDivision();
-            Msg.show("Attendnace Saved");
         }
 
         AttendanceInProgress=!AttendanceInProgress;
