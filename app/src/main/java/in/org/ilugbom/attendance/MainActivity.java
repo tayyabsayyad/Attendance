@@ -252,6 +252,18 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.action_history)
+        {
+            Msg.show("history");
+
+           model.LoadList();
+           currentDivision=0;
+           DisplayDivision();
+            return true;
+        }
+
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -365,6 +377,9 @@ public class MainActivity extends AppCompatActivity
         TA.DisplayDivision(model.Divisions.get(currentDivision));
         buttonDivTitle.setText(model.GetDivisionTitle(currentDivision));
     }
+
+
+
 
 }   /////CLASS END
 

@@ -2,10 +2,14 @@ package in.org.ilugbom.attendance;
 
 import android.content.Context;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,6 +100,55 @@ public class Model
         time = df3.format(c.getTime());
         return (date + " - " + dow + " - " + time);
     }
+
+
+
+
+    void LoadList()   //// Load History
+    {
+        String FileNameWithPath = "/sdcard/AttendanceData.atd";
+        try
+        {
+
+            File myFile = new File(FileNameWithPath);
+            FileInputStream fIn = new FileInputStream(myFile);
+            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
+            String aDataRow = "";
+
+            int i=0;
+            Divisions.clear();
+            String temp[];
+            while ((aDataRow = myReader.readLine()) != null)
+
+            {   if(!aDataRow.contains("#")) continue;
+                temp=aDataRow.split("#");
+                if(temp.length<4) continue;
+                Divisions.add(temp[1]+"#"+temp[2]+"#"+temp[3]);
+                i++;
+            }
+            myReader.close();
+
+            Msg.show("Loaded From SD Card");
+        }
+        catch (Exception e)
+        {
+            Msg.show(e.getMessage());
+        //    Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 }  // end Model class
 
 ///////////////////// Extras
