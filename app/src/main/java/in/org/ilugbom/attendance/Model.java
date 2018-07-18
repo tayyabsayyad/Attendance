@@ -22,6 +22,7 @@ import java.util.Calendar;
 public class Model
 {
     ArrayList<String> Divisions = new ArrayList<String>();
+    ArrayList<String> DateArray = new ArrayList<String>();
     int currentindex=0;
 
 
@@ -117,12 +118,14 @@ public class Model
 
             int i=0;
             Divisions.clear();
+            DateArray.clear();
             String temp[];
             while ((aDataRow = myReader.readLine()) != null)
 
             {   if(!aDataRow.contains("#")) continue;
                 temp=aDataRow.split("#");
                 if(temp.length<4) continue;
+                DateArray.add(temp[0]);
                 Divisions.add(temp[1]+"#"+temp[2]+"#"+temp[3]);
                 i++;
             }

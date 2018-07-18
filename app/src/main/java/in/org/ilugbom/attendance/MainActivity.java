@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity
    // HelpDialog HD=new HelpDialog();
 
 
-
     FloatingActionButton fab;
     boolean fabVisible=true;
     boolean AttendanceInProgress=false;
+    boolean HistoryMode=false;
 
     private ImageButton  buttonLeft,  buttonRight;
     private Button buttonDivTitle;
@@ -254,11 +254,21 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_history)
         {
-            Msg.show("history");
-
-           model.LoadList();
+          if(HistoryMode) //if historymode is true then switch it off
+          {HistoryMode=false;
+           model.LoadDivisions();
+           CDD.LoadDivisionsFromPrefs();
            currentDivision=0;
            DisplayDivision();
+
+
+          }
+          else
+              { HistoryMode=true;
+              model.LoadList();
+              currentDivision = 0;
+              DisplayDivision();
+          }
             return true;
         }
 
@@ -376,6 +386,8 @@ public class MainActivity extends AppCompatActivity
     {   TA.Divisions.clear();
         TA.DisplayDivision(model.Divisions.get(currentDivision));
         buttonDivTitle.setText(model.GetDivisionTitle(currentDivision));
+        if(HistoryMode) setTitle(model.DateArray.get(currentDivision));
+
     }
 
 
