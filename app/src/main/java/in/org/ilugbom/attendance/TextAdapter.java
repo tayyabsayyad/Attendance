@@ -103,7 +103,7 @@ public class TextAdapter extends BaseAdapter
         text.setGravity(Gravity.CENTER);
         Integer tt=new Integer(position);
         if(selectedPositions.contains(tt))
-            text.setBackgroundColor(Color.RED);
+            text.setBackgroundColor(context.getResources().getColor(R.color.colorTuch));
         else
             text.setBackgroundColor(Color.parseColor("#fbdcbb"));
 

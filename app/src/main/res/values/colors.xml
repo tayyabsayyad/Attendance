@@ -5,4 +5,5 @@
     <color name="colorAccent">#77AF86</color>
     <color name="colorGreen">#77AF76</color>
     <color name="colorPink">#FF4081</color>    <!-- original colorAccent -->
+    <color name="colorTuch">#FFBCFF</color>
 </resources>

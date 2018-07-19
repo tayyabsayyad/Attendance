@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
                     txtView.setBackgroundColor(Color.parseColor("#fbdcbb"));
                     TA.selectedPositions.remove(tt);
                 } else {
-                    txtView.setBackgroundColor(getResources().getColor(R.color.colorPink));
+                    txtView.setBackgroundColor(getResources().getColor(R.color.colorTuch));
                     TA.selectedPositions.add((Integer) position);
                 }
             }
@@ -254,12 +254,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_history)
         {
-          if(HistoryMode) //if historymode is true then switch it off
+          if(HistoryMode) //if historymode is true then switch it off and load opening screen
           {HistoryMode=false;
            model.LoadDivisions();
            CDD.LoadDivisionsFromPrefs();
            currentDivision=0;
            DisplayDivision();
+           setTitle(model.GetDateTimeString());
 
 
           }
