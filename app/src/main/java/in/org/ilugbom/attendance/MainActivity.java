@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity
 
 
         fab.setOnTouchListener(new View.OnTouchListener() {
+
 
             float x, y;
             float x1,y1;
@@ -324,6 +326,7 @@ public class MainActivity extends AppCompatActivity
 
     void OnFloatingButton()
     {
+       // ShowPopupMenu();
         if(!AttendanceInProgress) {
             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPink));
             Msg.show("Mark Attendance");
@@ -431,6 +434,32 @@ public class MainActivity extends AppCompatActivity
         // Display the alert dialog on interface
         dialog.show();
     }
+
+
+
+
+    void ShowPopupMenu()
+    {
+
+        //Creating the instance of PopupMenu
+        PopupMenu popup = new PopupMenu(MainActivity.this, fab);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+        //registering popup with OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+ //               Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
+                Msg.show("Test");
+                return true;
+            }
+        });
+
+        popup.show();//showing popup menu
+    }
+//});//closing the setOnClickListener method
+
+
 
 
 
