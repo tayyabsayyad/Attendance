@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
     Msg msg=new Msg();
     Model model;
     CreateDivDialog CDD=new CreateDivDialog();
-   // HelpDialog HD=new HelpDialog();
+    HelpDialog HD=new HelpDialog();
 
 
     FloatingActionButton fab;
@@ -260,6 +260,15 @@ public class MainActivity extends AppCompatActivity
             DeleteDivision();
             return true;
         }
+
+        if (id == R.id.action_help)
+        {
+
+            HD.showDialog(MainActivity.this);
+            return true;
+        }
+
+
 
         if (id == R.id.action_history)
         {
