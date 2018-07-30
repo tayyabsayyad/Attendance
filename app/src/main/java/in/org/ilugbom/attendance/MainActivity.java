@@ -330,20 +330,16 @@ public class MainActivity extends AppCompatActivity
         if(!AttendanceInProgress) {
             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPink));
             Msg.show("Mark Attendance");
+            AttendanceInProgress=!AttendanceInProgress;
         }
 
         else {
-            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-            String AL=GetAttendanceLine(); //current AAPAPAPP...
-            if(StoragePermissionGranted())
-              {
-                model.SaveList(AL);
-                TA.selectedPositions.clear();
-                DisplayDivision();
-              }
-        }
 
-        AttendanceInProgress=!AttendanceInProgress;
+            ShowPopupMenu();
+
+             }
+
+
 
     }
 ////////////
@@ -448,9 +444,38 @@ public class MainActivity extends AppCompatActivity
 
         //registering popup with OnMenuItemClickListener
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            public boolean onMenuItemClick(MenuItem item) {
+            public boolean onMenuItemClick(MenuItem item)
+            {
  //               Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                Msg.show("Test");
+            //    Msg.show("Test");
+               int option=item.getItemId();
+               switch(option)
+               { case R.id.one :
+                   fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                   String AL=GetAttendanceLine(); //current AAPAPAPP...
+                   if(StoragePermissionGranted())
+                   {
+                       model.SaveList(AL);
+                       TA.selectedPositions.clear();
+                       DisplayDivision();
+                   }
+                   fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                   AttendanceInProgress=!AttendanceInProgress;
+                   break;
+                 case R.id.two :
+                   Msg.show("Continue Attendance");
+                     break;
+                   case R.id.three :
+                       fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                       Msg.show("Attendance Discarded");
+                       TA.selectedPositions.clear();
+                       DisplayDivision();
+                       AttendanceInProgress=!AttendanceInProgress;
+                       break;
+               }
+
+
+
                 return true;
             }
         });

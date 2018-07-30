@@ -5,8 +5,9 @@
     android:title="Close and Save Attendance" />
 <item
     android:id="@+id/two"
-    android:title="Discard Attendnce"/>
+    android:title="Continue Attendance"/>
 <item
     android:id="@+id/three"
-    android:title="Continue Attendance"/>
+
+    android:title="Discard Attendnce"/>
 </menu>
