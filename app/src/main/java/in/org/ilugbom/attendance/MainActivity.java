@@ -59,6 +59,13 @@ public class MainActivity extends AppCompatActivity
    // LinearLayout LL;
 
 
+
+    //////////////////ON CREATE METHOD //////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +227,10 @@ public class MainActivity extends AppCompatActivity
         DisplayDivision();   //assert currentDivision=0;
 
     }  ////////////////////////////////////////// END OF ONCREATE
-
+       /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
 
 
     @Override
@@ -276,6 +286,7 @@ public class MainActivity extends AppCompatActivity
         {
           if(HistoryMode) //if historymode is true then switch it off and load opening screen
           {HistoryMode=false;
+           item.setChecked(HistoryMode);
            model.LoadDivisions();
            CDD.LoadDivisionsFromPrefs();
            currentDivision=0;
@@ -286,6 +297,7 @@ public class MainActivity extends AppCompatActivity
           }
           else
               { HistoryMode=true;
+                  item.setChecked(HistoryMode);
               model.LoadList();
               currentDivision = 0;
               DisplayDivision();

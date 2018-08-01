@@ -17,7 +17,8 @@
     <item
         android:id="@+id/action_history"
         android:orderInCategory="300"
-        android:title="History"
+        android:title="History Mode"
+        android:checkable="true"
         app:showAsAction="never" />
 
 
