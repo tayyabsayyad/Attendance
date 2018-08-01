@@ -6,4 +6,5 @@
     <color name="colorGreen">#77AF76</color>
     <color name="colorPink">#FF4081</color>    <!-- original colorAccent -->
     <color name="colorTuch">#FFBCFF</color>
+    <color name="skyBlue">#87CEEB</color>
 </resources>
