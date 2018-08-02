@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity
         DisplayDivision();   //assert currentDivision=0;
 
 
-        navigationView.setBackgroundColor(getResources().getColor(R.color.skyBlue));
+      //  navigationView.setBackgroundColor(getResources().getColor(R.color.skyBlue));
 
     }  ////////////////////////////////////////// END OF ONCREATE
        /////////////////////////////////////////////////////////
