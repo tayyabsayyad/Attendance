@@ -312,7 +312,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_delete_record)
         {
-            Msg.show("History - Del Record");
+//           model.Divisions.remove(currentDivision);
+            DeleteHistoryRecord();
+          //  Msg.show("History - Del Record");
             return true;
         }
 
@@ -430,11 +432,55 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    void DeleteHistoryRecord()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Delete This Record ?");
+
+        // Set the alert dialog yes button click listener
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+
+                if(model.Divisions.size()>1)
+                {
+                    model.Divisions.remove(currentDivision);
+                    model.DateArray.remove(currentDivision);
+                    currentDivision--;
+                    if(currentDivision<0) currentDivision=0;
+                    DisplayDivision();
+                    // Toast.makeText(getApplicationContext(),
+                    //       "Division Deleted",Toast.LENGTH_LONG).show();
+                    Msg.show("History Record Deleted");
+                    //CDD.SaveDivisionsInPrefs();
+
+                }
+            }
+        });
+
+        // Set the alert dialog no button click listener
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing on No button clicked
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        // Display the alert dialog on interface
+        dialog.show();
+    }
+
+
+
+
+
+
     void DeleteDivision()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Delete This Division ?");   // Set a title for alert dialog
-        //builder.setMessage("Test Message"); No Message required
 
         // Set the alert dialog yes button click listener
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
