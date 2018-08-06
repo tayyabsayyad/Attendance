@@ -105,28 +105,28 @@ public class Model
 
 
 
-    void LoadList()   //// Load History
+    void LoadHistory()   //// Load History = Load All Records
     {
         String FileNameWithPath = "/sdcard/AttendanceData.atd";
-        try
-        {
+        try {
 
             File myFile = new File(FileNameWithPath);
             FileInputStream fIn = new FileInputStream(myFile);
             BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
             String aDataRow = "";
 
-            int i=0;
+            int i = 0;
             Divisions.clear();
             DateArray.clear();
             String temp[];
             while ((aDataRow = myReader.readLine()) != null)
 
-            {   if(!aDataRow.contains("#")) continue;
-                temp=aDataRow.split("#");
-                if(temp.length<4) continue;
+            {
+                if (!aDataRow.contains("#")) continue;
+                temp = aDataRow.split("#");
+                if (temp.length < 4) continue;
                 DateArray.add(temp[0]);
-                Divisions.add(temp[1]+"#"+temp[2]+"#"+temp[3]);
+                Divisions.add(temp[1] + "#" + temp[2] + "#" + temp[3]);
                 i++;
             }
             myReader.close();
@@ -134,21 +134,51 @@ public class Model
             Msg.show("Loaded From SD Card");
         }
         catch (Exception e)
+
         {
             Msg.show(e.getMessage());
-        //    Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
-
-
-
-
-
     }
 
 
+    void SaveHistory(String AttendanceLine)
+    {
 
+        int i;
+        String txtData = "";
+        //  modified=false;
+        //  String tmpStr;
+        String FileNameWithPath = "/sdcard/AttendanceData.atd";
+        try {
+            File myFile = new File(FileNameWithPath);
+            myFile.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(myFile,true);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
+            String RString = "======== Reserved Line 1 =======\n";
+                   RString+= "======== Reserved Line 2 =======\n";
+                   myOutWriter.append(RString);
 
+            txtData += GetDateTimeString();
+            txtData +="#";
+            txtData += GetDivisionTitle(MainActivity.currentDivision);
+            txtData += "#";
+            txtData += GetRollStartFinish(MainActivity.currentDivision);
+            txtData += "#";
+            txtData += AttendanceLine;
+            txtData += "\n";
+
+            myOutWriter.append(txtData);
+            myOutWriter.close();
+            fOut.close();
+            Msg.show("Attendance Saved ");
+
+        } catch (Exception e)
+        {
+            Msg.show(e.getMessage());
+        }
+    }
 
 
 

@@ -260,8 +260,10 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
+
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings)
+        if (id == R.id.action_add_division)
         {
             //Msg.show("Settings");
             CDD.editmode=false;
@@ -270,20 +272,19 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.action_invert_selection)
+        {
+            Msg.show("Invert Selection");
+            return true;
+        }
+
+
+
         if (id == R.id.action_delete_div)
         {
             DeleteDivision();
             return true;
         }
-
-        if (id == R.id.action_help)
-        {
-
-            HD.showDialog(MainActivity.this);
-            return true;
-        }
-
-
 
         if (id == R.id.action_history)
         {
@@ -301,13 +302,36 @@ public class MainActivity extends AppCompatActivity
           else
               { HistoryMode=true;
                   item.setChecked(HistoryMode);
-              model.LoadList();
-              currentDivision = 0;
+              model.LoadHistory();
+              currentDivision = model.Divisions.size()-1;
               DisplayDivision();
           }
             return true;
         }
 
+
+        if (id == R.id.action_delete_record)
+        {
+            Msg.show("History - Del Record");
+            return true;
+        }
+
+
+        if (id == R.id.action_history_save)
+        {
+            Msg.show("History - Save");
+            return true;
+        }
+
+
+
+
+        if (id == R.id.action_help)
+        {
+
+            HD.showDialog(MainActivity.this);
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);
