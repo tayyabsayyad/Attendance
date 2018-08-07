@@ -142,9 +142,8 @@ public class Model
     }
 
 
-    void SaveHistory(String AttendanceLine)
+    void SaveHistory()
     {
-
         int i;
         String txtData = "";
         //  modified=false;
@@ -153,26 +152,24 @@ public class Model
         try {
             File myFile = new File(FileNameWithPath);
             myFile.createNewFile();
-            FileOutputStream fOut = new FileOutputStream(myFile,true);
+            FileOutputStream fOut = new FileOutputStream(myFile);
             OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
             String RString = "======== Reserved Line 1 =======\n";
                    RString+= "======== Reserved Line 2 =======\n";
                    myOutWriter.append(RString);
 
-            txtData += GetDateTimeString();
-            txtData +="#";
-            txtData += GetDivisionTitle(MainActivity.currentDivision);
-            txtData += "#";
-            txtData += GetRollStartFinish(MainActivity.currentDivision);
-            txtData += "#";
-            txtData += AttendanceLine;
-            txtData += "\n";
+                   for(i=0;i<DateArray.size();i++)
+                   {txtData+=DateArray.get(i);
+                    txtData+="#";
+                    txtData+=Divisions.get(i);
+                    txtData+="\n";
+                   }
 
             myOutWriter.append(txtData);
             myOutWriter.close();
             fOut.close();
-            Msg.show("Attendance Saved ");
+            Msg.show("History Saved ");
 
         } catch (Exception e)
         {

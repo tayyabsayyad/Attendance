@@ -313,6 +313,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_delete_record)
         {
 //           model.Divisions.remove(currentDivision);
+            if(!HistoryMode) { Msg.show("History Mode Off, Nothing To delete"); return true; }
+
             DeleteHistoryRecord();
           //  Msg.show("History - Del Record");
             return true;
@@ -321,7 +323,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_history_save)
         {
-            Msg.show("History - Save");
+            if(!HistoryMode) { Msg.show("History Mode Off, Nothing To Save"); return true; }
+            model.SaveHistory();
+
             return true;
         }
 
