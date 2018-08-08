@@ -7,8 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!-- To change the background of options menu-->
+        <!--     To change the background of options menu
+
         <item name="android:itemBackground">@color/skyBlue</item>
+
+          -->
 
     </style>
 
