@@ -28,6 +28,7 @@ public class TextAdapter extends BaseAdapter
 {
     String[] numbers = new String[120];
     Set<Integer> selectedPositions=new HashSet<Integer>();
+    Set<Integer> tempPositions=new HashSet<Integer>();
     List<String> list = new ArrayList<String>();
     boolean found=false;
     ArrayList<String> Divisions=new ArrayList<String>();
@@ -55,6 +56,9 @@ public class TextAdapter extends BaseAdapter
     {
         this.context = context;
     }
+
+
+
 
 
     void DisplayDivision(String divline)
@@ -111,4 +115,6 @@ public class TextAdapter extends BaseAdapter
         text.setTextSize(25);
         return text;
     }
+
+
 }

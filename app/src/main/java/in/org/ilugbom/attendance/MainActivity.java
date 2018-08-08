@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
     CreateDivDialog CDD=new CreateDivDialog();
     HelpDialog HD=new HelpDialog();
 
-
     FloatingActionButton fab;
     boolean fabVisible=true;
     boolean AttendanceInProgress=false;
@@ -274,6 +273,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_invert_selection)
         {
+            InvertAttendance();
             Msg.show("Invert Selection");
             return true;
         }
@@ -328,8 +328,6 @@ public class MainActivity extends AppCompatActivity
 
             return true;
         }
-
-
 
 
         if (id == R.id.action_help)
@@ -587,6 +585,21 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    void InvertAttendance()
+    {
+        String Line="";
+            for(int i=0;i<TA.numbers.length;i++)
+            {Integer tt=new Integer(i);
+                if(TA.selectedPositions.contains(tt))
+                    Line+="P";
+                else
+                    Line+="A";
+            }
+
+        TA.Fillpositions(Line);
+            TA.notifyDataSetChanged();
+
+    }
 
 
 }   /////CLASS END
