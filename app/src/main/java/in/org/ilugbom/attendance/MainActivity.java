@@ -179,14 +179,7 @@ public class MainActivity extends AppCompatActivity
 
             public void onClick(View view)
             {
-                CDD.editmode=true;
-                CDD.tempDivTitle=model.GetDivisionTitle(currentDivision);
-                String temp,temp2[];
-                temp=model.GetRollStartFinish(currentDivision);
-                temp2=temp.split("-");
-                CDD.tempFroll=temp2[0];
-                CDD.tempLroll=temp2[1];
-                CDD.showDialog(MainActivity.this);
+
             }
         });
 
@@ -277,6 +270,14 @@ public class MainActivity extends AppCompatActivity
             Msg.show("Invert Selection");
             return true;
         }
+
+
+        if (id==R.id.action_edit_div)
+        {
+            EditDivision();
+        }
+
+
 
 
 
@@ -382,7 +383,7 @@ public class MainActivity extends AppCompatActivity
 
              }
     }
-////////////
+////////////////////////////////////////////////
 
 
     public  boolean StoragePermissionGranted() {
@@ -413,6 +414,23 @@ public class MainActivity extends AppCompatActivity
             //resume tasks needing this permission
         }
     }
+
+
+
+    void EditDivision()
+    {
+        CDD.editmode=true;
+        CDD.tempDivTitle=model.GetDivisionTitle(currentDivision);
+        String temp,temp2[];
+        temp=model.GetRollStartFinish(currentDivision);
+        temp2=temp.split("-");
+        CDD.tempFroll=temp2[0];
+        CDD.tempLroll=temp2[1];
+        CDD.showDialog(MainActivity.this);
+
+
+    }
+
 
 
 

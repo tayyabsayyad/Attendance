@@ -19,6 +19,11 @@ public class CreateDivDialog
     Model model;
     private MainActivity MA;
     public String tempDivTitle,tempFroll,tempLroll;
+    String collegename="SIWS College";
+    String subject="Mathematics";
+    String email="My Email";
+
+
 
     boolean editmode=false;  ///if true Record is refreshed, if false it added to division array
 
@@ -98,9 +103,6 @@ public class CreateDivDialog
             }
 
         }
-        String collegename="SIWS College";
-        String subject="Mathematics";
-        String email="My Email";
         SharedPreferences settings = MA.getSharedPreferences("DIVS", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("key1", alldivisions);
@@ -117,9 +119,9 @@ public class CreateDivDialog
     void LoadDivisionsFromPrefs()
     {  SharedPreferences settings = MA.getSharedPreferences("DIVS", 0);
         String alldivisions = settings.getString("key1", "XI-Z");
-        String collegename = settings.getString("key2", "SIWS College");
-        String subject = settings.getString("key3", "Mathematics");
-        String email = settings.getString("key4", "my Email");
+        collegename = settings.getString("key2", "SIWS College");
+        subject = settings.getString("key3", "Mathematics");
+        email = settings.getString("key4", "my Email");
 
         Msg.show(alldivisions);
         if(alldivisions.contains("│"))
