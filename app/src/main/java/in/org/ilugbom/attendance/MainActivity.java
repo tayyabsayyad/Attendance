@@ -381,9 +381,6 @@ public class MainActivity extends AppCompatActivity
             ShowPopupMenu();
 
              }
-
-
-
     }
 ////////////
 
@@ -476,9 +473,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
-
-
     void DeleteDivision()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
@@ -537,17 +531,7 @@ public class MainActivity extends AppCompatActivity
             //    Msg.show("Test");
                int option=item.getItemId();
                switch(option)
-               { case R.id.one :
-                   fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-                   String AL=GetAttendanceLine(); //current AAPAPAPP...
-                   if(StoragePermissionGranted())
-                   {
-                       model.SaveList(AL);
-                       TA.selectedPositions.clear();
-                       DisplayDivision();
-                   }
-                   fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-                   AttendanceInProgress=!AttendanceInProgress;
+               { case R.id.one : CloseAnsSaveAttendance();
                    break;
                  case R.id.two :
                    Msg.show("Continue Attendance");
@@ -571,7 +555,31 @@ public class MainActivity extends AppCompatActivity
     }
 //});//closing the setOnClickListener method
 
+void CloseAnsSaveAttendance()
+    {
 
+        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+        AttendanceInProgress=false;
+        String AL=GetAttendanceLine(); //current line :  AAPAPAPP...etc
+
+        if(HistoryMode)
+        {
+            String atdLine=model.Divisions.get(currentDivision);
+            String temp[];
+            temp=atdLine.split("#");
+            model.Divisions.set(currentDivision,temp[0]+"#"+temp[1]+"#"+AL);
+            return;
+
+        }
+        ///else normal mode so save on sd card
+        if(StoragePermissionGranted())
+        {
+            model.SaveList(AL);
+            TA.selectedPositions.clear();
+            DisplayDivision();
+        }
+
+    }
 
 
 
@@ -587,6 +595,7 @@ public class MainActivity extends AppCompatActivity
 
     void InvertAttendance()
     {
+        if(!AttendanceInProgress) {Msg.show("Attendance Mode Off"); return;}
         String Line="";
             for(int i=0;i<TA.numbers.length;i++)
             {Integer tt=new Integer(i);
