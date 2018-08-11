@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity
 
     TextAdapter TA;
     Msg msg=new Msg();
+    SendBackupByEmail sbbe=new SendBackupByEmail();
+
     Model model;
     CreateDivDialog CDD=new CreateDivDialog();
     HelpDialog HD=new HelpDialog();
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
         msg.SetMA(this);
-
+        sbbe.SetMA(this);
 
         TA = new TextAdapter(this);
         final GridView gridView = (GridView) findViewById(R.id.gridview);
@@ -358,8 +360,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_send)
+        {
+          sbbe.Send("oak444@gmail.com");
+          Msg.show("send test");
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
