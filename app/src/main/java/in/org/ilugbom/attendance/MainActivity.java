@@ -280,9 +280,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-
-
-
         if (id == R.id.action_delete_div)
         {
             DeleteDivision();
@@ -360,15 +357,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow)
         {
 
-        } else if (id == R.id.nav_setpreferrences)
+        } else if (id == R.id.nav_setpreferences)
         {
-          CDD.showPreferrenceDialog(MainActivity.this);
+          CDD.showPreferenceDialog(MainActivity.this);
         } else if (id == R.id.nav_share)
         {
 
         } else if (id == R.id.nav_send)
         {
-          sbbe.Send("oak444@gmail.com");
+          sbbe.Send(CDD.email);
           Msg.show("send test");
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

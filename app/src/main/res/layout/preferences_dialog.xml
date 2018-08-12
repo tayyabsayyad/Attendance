@@ -23,7 +23,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
             android:maxLines="1"
-            android:inputType="textCapCharacters"
             android:textColor="#000000"
             android:textSize="18sp"
             android:background="@drawable/edittext_background"
@@ -42,7 +41,6 @@
             android:maxLines="1"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:inputType="textCapCharacters"
             android:background="@drawable/edittext_background"
             android:textColorHint="#aeaeae"
             >

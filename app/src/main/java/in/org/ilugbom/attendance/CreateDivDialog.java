@@ -93,7 +93,7 @@ public class CreateDivDialog
     }
 
 
-    public void showPreferrenceDialog(final Context context){
+    public void showPreferenceDialog(final Context context){
         final Dialog dialog = new Dialog(context);
         dialog.setTitle("Set Preferences");
         //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

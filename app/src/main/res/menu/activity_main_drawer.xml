@@ -18,9 +18,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Reserved Menu" />
         <item
-            android:id="@+id/nav_setpreferrences"
+            android:id="@+id/nav_setpreferences"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Set Preferrences" />
+            android:title="Set Preferences" />
     </group>
 
     <item android:title="Communicate">
