@@ -8,19 +8,19 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="View Full Report" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Print Full Report" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Reserved Menu" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_setpreferrences"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Set Preferrences" />
     </group>
 
     <item android:title="Communicate">
@@ -32,7 +32,7 @@
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Send Backup" />
         </menu>
     </item>
 

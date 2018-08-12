@@ -93,6 +93,50 @@ public class CreateDivDialog
     }
 
 
+    public void showPreferrenceDialog(final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.setTitle("Set Preferences");
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.preferences_dialog);
+        dialog.show();
+
+        final EditText etCollegename = dialog.findViewById(R.id.collegename);
+        final EditText etSubjectTeacher = dialog.findViewById(R.id.subject);
+        final EditText etEmail = dialog.findViewById(R.id.email);
+        /// set current values
+        etCollegename.setText(collegename);
+        etSubjectTeacher.setText(subject);
+        etEmail.setText(email);
+        ////////
+        Button mBtn_cancel = dialog.findViewById(R.id.btn_cancel);
+        Button mBtn_ok = dialog.findViewById(R.id.btn_ok);
+
+        mBtn_cancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        mBtn_ok.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                collegename=etCollegename.getText().toString();
+                subject=etSubjectTeacher.getText().toString();
+                email=etEmail.getText().toString();
+                 SaveDivisionsInPrefs();
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+
+
+
     void SaveDivisionsInPrefs()
     {   String alldivisions=model.Divisions.get(0);
         if(model.Divisions.size()>1)
