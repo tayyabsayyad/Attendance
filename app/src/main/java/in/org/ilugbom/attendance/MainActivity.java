@@ -348,13 +348,16 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera)
+        if (id == R.id.nav_viewfullreport)
         {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery)
+            CreateReport CR=new CreateReport();
+            CR.LoadHistory(model.GetDivisionTitle(currentDivision));
+            CR.ShowReport(4);
+
+        } else if (id == R.id.nav_printfullreport)
         {
 
-        } else if (id == R.id.nav_slideshow)
+        } else if (id == R.id.nav_reserved)
         {
 
         } else if (id == R.id.nav_setpreferences)

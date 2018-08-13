@@ -115,7 +115,6 @@ public class Model
             BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
             String aDataRow = "";
 
-            int i = 0;
             Divisions.clear();
             DateArray.clear();
             String temp[];
@@ -127,7 +126,6 @@ public class Model
                 if (temp.length < 4) continue;
                 DateArray.add(temp[0]);
                 Divisions.add(temp[1] + "#" + temp[2] + "#" + temp[3]);
-                i++;
             }
             myReader.close();
 
