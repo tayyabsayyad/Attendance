@@ -17,9 +17,11 @@ public class CreateReport
     void LoadHistory(String divtitle)   //// Load All Records of one division
     {
         String FileNameWithPath = "/sdcard/AttendanceData.atd";
+
         try {
 
             File myFile = new File(FileNameWithPath);
+            if(!myFile.exists()) { Msg.show("No Attendance Record !"); return; }
             FileInputStream fIn = new FileInputStream(myFile);
             BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
             String aDataRow = "";
