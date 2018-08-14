@@ -37,7 +37,7 @@ public class CreateReport
              }
             myReader.close();
 
-            Msg.show(String.format("%d",Divisions.size()));
+
         }
         catch (Exception e)
 
@@ -49,8 +49,10 @@ public class CreateReport
 
     void ShowReport(int index)
     {
+        int counter=0;
         for(int i=0;i<Divisions.size();i++)
-            Msg.show(Divisions.get(i));
+          if(Divisions.get(i).charAt(index)=='P') counter++;
+        Msg.show(String.format("%d/%d",counter,Divisions.size()));
 
     }
 

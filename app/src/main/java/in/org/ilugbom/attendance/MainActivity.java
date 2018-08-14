@@ -116,6 +116,24 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int position, long arg3) {
+                int firstPosition = gridView.getFirstVisiblePosition();
+                int childPosition = position - firstPosition;
+                TextView txtView = (TextView) gridView.getChildAt(childPosition);
+                Integer tt = new Integer(position);
+                int index=tt.intValue();
+                CreateReport CR=new CreateReport();
+                CR.LoadHistory(model.GetDivisionTitle(currentDivision));
+                CR.ShowReport(index);
+
+                return true;
+            }
+        });
+
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
