@@ -134,9 +134,6 @@ public class CreateDivDialog
     }
 
 
-
-
-
     void SaveDivisionsInPrefs()
     {   String alldivisions=model.Divisions.get(0);
         if(model.Divisions.size()>1)

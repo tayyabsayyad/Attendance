@@ -258,12 +258,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-        if(modified)  { ShowPopupMenu(); modified=true;  }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else
+
+        if(modified)  {  ShowPopupMenu(); }
+        else
+        {
             super.onBackPressed();
         }
     }
@@ -376,33 +378,24 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_viewfullreport)
+        switch (id)
         {
-            CreateReport CR=new CreateReport();
-            CR.LoadHistory(model.GetDivisionTitle(currentDivision));
-            CR.ShowReport(4);
+            case R.id.nav_viewfullreport : Msg.show("View-Report Module Pending.."); break;
 
-        } else if (id == R.id.nav_printfullreport)
-        {
+            case R.id.nav_printfullreport : Msg.show("Print-Report Module Pending.."); break;
 
-        } else if (id == R.id.nav_reserved)
-        {
+            case R.id.nav_reserved : Msg.show("Reserved Menu"); break;
 
-        } else if (id == R.id.nav_setpreferences)
-        {
-          CDD.showPreferenceDialog(MainActivity.this);
-        } else if (id == R.id.nav_share)
-        {
+            case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
-        } else if (id == R.id.nav_send)
-        {
-          sbbe.Send(CDD.email);
-          Msg.show("send test");
+            case R.id.nav_share : Msg.show("Share-Module Pending..");break;
+
+            case R.id.nav_send : sbbe.Send(CDD.email); break;
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-
     }
 
 
@@ -596,6 +589,7 @@ public class MainActivity extends AppCompatActivity
                        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
                        Msg.show("Attendance Discarded");
                        TA.selectedPositions.clear();
+                       modified=false;
                        DisplayDivision();
                        AttendanceInProgress=!AttendanceInProgress;
                        break;
