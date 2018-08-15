@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,16 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -363,7 +374,16 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_help)
         {
 
-            HD.showDialog(MainActivity.this);
+            try {
+                createPdf();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (DocumentException e) {
+                e.printStackTrace();
+            }
+
+
+            //    HD.showDialog(MainActivity.this);
             return true;
         }
 
@@ -382,7 +402,11 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_viewfullreport : Msg.show("View-Report Module Pending.."); break;
 
-            case R.id.nav_printfullreport : Msg.show("Print-Report Module Pending.."); break;
+            case R.id.nav_printfullreport : Msg.show("Print-Report Module Pending..");
+
+
+
+            break;
 
             case R.id.nav_reserved : Msg.show("Reserved Menu"); break;
 
@@ -662,6 +686,27 @@ void CloseAnsSaveAttendance()
 
         TA.Fillpositions(Line);
             TA.notifyDataSetChanged();
+
+    }
+
+
+
+    private void createPdf() throws FileNotFoundException,DocumentException {
+
+
+        File myFile = new File("/sdcard/test.pdf");
+
+        OutputStream output = new FileOutputStream(myFile);
+
+
+        Document document = new Document();
+        PdfWriter.getInstance(
+                document, output);
+        document.open();
+        document.add(new Paragraph("Hello World!"));
+        document.close();
+
+
 
     }
 
