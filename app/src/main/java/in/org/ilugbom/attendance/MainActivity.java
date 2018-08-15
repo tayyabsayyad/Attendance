@@ -2,6 +2,7 @@ package in.org.ilugbom.attendance;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";  //for rutime storage permission code
     private static final int REQUEST_CODE = 1;
-
+    private boolean modified=false;
     TextAdapter TA;
     Msg msg=new Msg();
     SendBackupByEmail sbbe=new SendBackupByEmail();
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       //  LL = (LinearLayout) findViewById(R.id.ClassBar);
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity
                     txtView.setBackgroundColor(getResources().getColor(R.color.colorTuch));
                     TA.selectedPositions.add((Integer) position);
                 }
+                modified=true;
             }
         });
 
@@ -248,8 +252,14 @@ public class MainActivity extends AppCompatActivity
     ////////////////////////////////////////////////////////////
 
 
+
+
+
     @Override
     public void onBackPressed() {
+
+        if(modified)  { ShowPopupMenu(); modified=true;  }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -623,6 +633,7 @@ void CloseAnsSaveAttendance()
             model.SaveList(AL);
             TA.selectedPositions.clear();
             DisplayDivision();
+            modified=false;
         }
 
     }

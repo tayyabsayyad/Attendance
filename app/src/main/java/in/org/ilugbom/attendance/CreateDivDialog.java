@@ -167,7 +167,7 @@ public class CreateDivDialog
         subject = settings.getString("key3", "Mathematics");
         email = settings.getString("key4", "my Email");
 
-        Msg.show(alldivisions);
+        //Msg.show(alldivisions);
         if(alldivisions.contains("│"))
         {model.Divisions.clear();
             String temp[];
