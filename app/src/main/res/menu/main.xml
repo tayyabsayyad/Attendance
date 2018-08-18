@@ -44,14 +44,6 @@
         app:showAsAction="never" />
 
 
-
-    <item
-        android:id="@+id/action_history_save"
-        android:orderInCategory="700"
-        android:title="History - Save"
-        app:showAsAction="never" />
-
-
     <item
         android:id="@+id/action_help"
         android:orderInCategory="800"

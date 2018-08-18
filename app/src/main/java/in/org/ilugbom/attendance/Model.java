@@ -44,7 +44,6 @@ public class Model
 
     void LoadDivisions() {
         Divisions.add("IX-A#5001-5120#P");
-        Divisions.add("XI-B#141-325#P");
         Divisions.add("XI-C#321-400#P");
         Divisions.add("TY-C#721-800#P");
     }
@@ -168,6 +167,7 @@ public class Model
             myOutWriter.close();
             fOut.close();
             Msg.show("History Saved ");
+
 
         } catch (Exception e)
         {

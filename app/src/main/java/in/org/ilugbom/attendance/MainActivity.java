@@ -331,6 +331,7 @@ public class MainActivity extends AppCompatActivity
         {
           if(HistoryMode) //if historymode is true then switch it off and load opening screen
           {HistoryMode=false;
+          model.Divisions.clear();
            item.setChecked(HistoryMode);
            model.LoadDivisions();
            CDD.LoadDivisionsFromPrefs();
@@ -358,15 +359,6 @@ public class MainActivity extends AppCompatActivity
 
             DeleteHistoryRecord();
           //  Msg.show("History - Del Record");
-            return true;
-        }
-
-
-        if (id == R.id.action_history_save)
-        {
-            if(!HistoryMode) { Msg.show("History Mode Off, Nothing To Save"); return true; }
-            model.SaveHistory();
-
             return true;
         }
 
@@ -524,6 +516,7 @@ public class MainActivity extends AppCompatActivity
                     DisplayDivision();
                     // Toast.makeText(getApplicationContext(),
                     //       "Division Deleted",Toast.LENGTH_LONG).show();
+                    model.SaveHistory();
                     Msg.show("History Record Deleted");
                     //CDD.SaveDivisionsInPrefs();
 
@@ -604,7 +597,7 @@ public class MainActivity extends AppCompatActivity
             //    Msg.show("Test");
                int option=item.getItemId();
                switch(option)
-               { case R.id.one : CloseAnsSaveAttendance();
+               { case R.id.one : CloseAndSaveAttendance();
                    break;
                  case R.id.two :
                    Msg.show("Continue Attendance");
@@ -629,7 +622,7 @@ public class MainActivity extends AppCompatActivity
     }
 //});//closing the setOnClickListener method
 
-void CloseAnsSaveAttendance()
+void CloseAndSaveAttendance()
     {
 
         fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
@@ -642,6 +635,8 @@ void CloseAnsSaveAttendance()
             String temp[];
             temp=atdLine.split("#");
             model.Divisions.set(currentDivision,temp[0]+"#"+temp[1]+"#"+AL);
+            model.SaveHistory();
+            modified=false;
             return;
 
         }

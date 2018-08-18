@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by milind on 24/6/18.
+ * Created by Milind on 24/6/18.
  */
 
 public class TextAdapter extends BaseAdapter
