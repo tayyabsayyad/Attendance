@@ -19,9 +19,10 @@ public class CreateDivDialog
     Model model;
     private MainActivity MA;
     public String tempDivTitle,tempFroll,tempLroll;
-    String collegename="SIWS College";
-    String subject="Mathematics";
-    String email="My Email";
+    String college="XYZ College";
+    String teacher="Name";
+    String subject="Subject";
+    String email="Email";
 
 
 
@@ -101,12 +102,14 @@ public class CreateDivDialog
         dialog.setContentView(R.layout.preferences_dialog);
         dialog.show();
 
-        final EditText etCollegename = dialog.findViewById(R.id.collegename);
-        final EditText etSubjectTeacher = dialog.findViewById(R.id.subject);
+        final EditText etCollege = dialog.findViewById(R.id.college);
+        final EditText etTeacher = dialog.findViewById(R.id.teacher);
+        final EditText etSubject = dialog.findViewById(R.id.subject);
         final EditText etEmail = dialog.findViewById(R.id.email);
         /// set current values
-        etCollegename.setText(collegename);
-        etSubjectTeacher.setText(subject);
+        etCollege.setText(college);
+        etTeacher.setText(teacher);
+        etSubject.setText(subject);
         etEmail.setText(email);
         ////////
         Button mBtn_cancel = dialog.findViewById(R.id.btn_cancel);
@@ -124,8 +127,9 @@ public class CreateDivDialog
             @Override
             public void onClick(View v)
             {
-                collegename=etCollegename.getText().toString();
-                subject=etSubjectTeacher.getText().toString();
+                college=etCollege.getText().toString();
+                teacher=etTeacher.getText().toString();
+                subject=etSubject.getText().toString();
                 email=etEmail.getText().toString();
                  SaveDivisionsInPrefs();
                 dialog.dismiss();
@@ -147,10 +151,10 @@ public class CreateDivDialog
         SharedPreferences settings = MA.getSharedPreferences("DIVS", 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("key1", alldivisions);
-        editor.putString("key2", collegename);
-        editor.putString("key3", subject);
-        editor.putString("key4", email);
-
+        editor.putString("key2", college);
+        editor.putString("key3", teacher);
+        editor.putString("key4",subject);
+        editor.putString("key5", email);
         editor.commit();
         Msg.show(alldivisions);
 
@@ -160,9 +164,10 @@ public class CreateDivDialog
     void LoadDivisionsFromPrefs()
     {  SharedPreferences settings = MA.getSharedPreferences("DIVS", 0);
         String alldivisions = settings.getString("key1", "XI-Z");
-        collegename = settings.getString("key2", "SIWS College");
-        subject = settings.getString("key3", "Mathematics");
-        email = settings.getString("key4", "my Email");
+        college = settings.getString("key2", "SIWS College");
+        teacher = settings.getString("key3", "Name");
+        subject=settings.getString("key4","Subject");
+        email = settings.getString("key5", "Email");
 
         //Msg.show(alldivisions);
         if(alldivisions.contains("│"))

@@ -49,12 +49,17 @@ public class CreateReport
         }
     }
 
+
+
     void ShowReport(int index)
     {
         int counter=0;
         for(int i=0;i<Divisions.size();i++)
-          if(Divisions.get(i).charAt(index)=='P') counter++;
-        Msg.show(String.format("%d/%d",counter,Divisions.size()));
+            if(Divisions.get(i).charAt(index)=='P') counter++;
+        float percentage,sum;
+        sum=counter;
+        percentage=sum*100/Divisions.size();
+        Msg.show(String.format("%d/%d  =  %.2f%%",counter,Divisions.size(),percentage));
 
     }
 

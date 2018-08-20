@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       //  LL = (LinearLayout) findViewById(R.id.ClassBar);
 
+        if(!StoragePermissionGranted()) finish();
 
         setSupportActionBar(toolbar);
         msg.SetMA(this);
@@ -366,16 +367,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_help)
         {
 
-            try {
-                createPdf();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (DocumentException e) {
-                e.printStackTrace();
-            }
-
-
-            //    HD.showDialog(MainActivity.this);
+            HD.showDialog(MainActivity.this);
             return true;
         }
 
@@ -394,10 +386,17 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_viewfullreport : Msg.show("View-Report Module Pending.."); break;
 
-            case R.id.nav_printfullreport : Msg.show("Print-Report Module Pending..");
+            case R.id.nav_printfullreport :
 
 
-
+                try {
+                    createPdf();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                }
+                Msg.show("Print-Report Module Pending..");
             break;
 
             case R.id.nav_reserved : Msg.show("Reserved Menu"); break;

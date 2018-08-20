@@ -14,7 +14,7 @@
         android:background="#6a87cf"
         android:padding="20dp">
         <EditText
-            android:id="@+id/collegename"
+            android:id="@+id/college"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
@@ -31,13 +31,13 @@
         </EditText>
 
         <EditText
-            android:id="@+id/subject"
+            android:id="@+id/teacher"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
             android:layout_marginBottom="20dp"
-            android:hint="Subject - Teacher Name"
+            android:hint="Your Name"
             android:maxLines="1"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -45,6 +45,25 @@
             android:textColorHint="#aeaeae"
             >
         </EditText>
+
+
+
+        <EditText
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Your Subject"
+            android:maxLines="1"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#aeaeae"
+            >
+        </EditText>
+
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
