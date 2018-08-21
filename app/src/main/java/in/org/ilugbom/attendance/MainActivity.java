@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";  //for rutime storage permission code
     private static final int REQUEST_CODE = 1;
     private boolean modified=false;
+    private TextView FC;
+    int counter=0;
     TextAdapter TA;
     Msg msg=new Msg();
     SendBackupByEmail sbbe=new SendBackupByEmail();
@@ -94,6 +96,8 @@ public class MainActivity extends AppCompatActivity
         msg.SetMA(this);
         sbbe.SetMA(this);
 
+        FC=(TextView) findViewById(R.id.FabCounter);
+
         TA = new TextAdapter(this);
         final GridView gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(TA);
@@ -125,6 +129,8 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     txtView.setBackgroundColor(getResources().getColor(R.color.colorTuch));
                     TA.selectedPositions.add((Integer) position);
+                    FC.setText(String.format("%d",TA.selectedPositions.size()));
+
                 }
                 modified=true;
             }
