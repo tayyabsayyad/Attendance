@@ -90,7 +90,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       //  LL = (LinearLayout) findViewById(R.id.ClassBar);
 
+        if(!StoragePermissionGranted()) ;
+
         if(!StoragePermissionGranted()) finish();
+
 
         setSupportActionBar(toolbar);
         msg.SetMA(this);
@@ -611,7 +614,7 @@ public class MainActivity extends AppCompatActivity
             //    Msg.show("Test");
                int option=item.getItemId();
                switch(option)
-               { case R.id.one : CloseAndSaveAttendance();  FC.setText(""); break;
+               { case R.id.one : CloseAndSaveAttendance(); break;
                  case R.id.two :
                    Msg.show("Continue Attendance"); break;
                    case R.id.three :
@@ -619,9 +622,8 @@ public class MainActivity extends AppCompatActivity
                        Msg.show("Attendance Discarded");
                        TA.selectedPositions.clear();
                        modified=false;
-                       DisplayDivision();
                        AttendanceInProgress=!AttendanceInProgress;
-                       FC.setText("");
+                       DisplayDivision();
                        break;
                }
                 return true;
@@ -647,6 +649,7 @@ void CloseAndSaveAttendance()
             model.Divisions.set(currentDivision,temp[0]+"#"+temp[1]+"#"+AL);
             model.SaveHistory();
             modified=false;
+            FC.setText(String.format("%d",TA.selectedPositions.size()));
             return;
 
         }
@@ -661,9 +664,6 @@ void CloseAndSaveAttendance()
 
     }
 
-
-
-
     void DisplayDivision()   //// Display division with index currentdivision
     {   TA.Divisions.clear();
         TA.DisplayDivision(model.Divisions.get(currentDivision));
@@ -672,9 +672,10 @@ void CloseAndSaveAttendance()
             setTitle(model.DateArray.get(currentDivision));
             FC.setText(String.format("%d",TA.selectedPositions.size()));
         }
+        else
+            FC.setText("");
 
     }
-
 
 
     void InvertAttendance()

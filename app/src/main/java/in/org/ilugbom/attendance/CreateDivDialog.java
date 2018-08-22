@@ -19,7 +19,7 @@ public class CreateDivDialog
     Model model;
     private MainActivity MA;
     public String tempDivTitle,tempFroll,tempLroll;
-    String college="XYZ College";
+    String college="School/College";
     String teacher="Name";
     String subject="Subject";
     String email="Email";
@@ -164,7 +164,7 @@ public class CreateDivDialog
     void LoadDivisionsFromPrefs()
     {  SharedPreferences settings = MA.getSharedPreferences("DIVS", 0);
         String alldivisions = settings.getString("key1", "XI-Z");
-        college = settings.getString("key2", "SIWS College");
+        college = settings.getString("key2", "School/College");
         teacher = settings.getString("key3", "Name");
         subject=settings.getString("key4","Subject");
         email = settings.getString("key5", "Email");
