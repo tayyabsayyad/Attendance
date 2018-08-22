@@ -30,9 +30,9 @@
 
 
     <item
-        android:id="@+id/action_history"
+        android:id="@+id/action_history_mode"
         android:orderInCategory="500"
-        android:title="History - Load"
+        android:title="History Mode"
         android:checkable="true"
         app:showAsAction="never" />
 
@@ -40,7 +40,7 @@
     <item
         android:id="@+id/action_delete_record"
         android:orderInCategory="600"
-        android:title="History - Delete Record"
+        android:title="History Mode - Delete Record"
         app:showAsAction="never" />
 
 

@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity
                 if (TA.selectedPositions.contains(tt)) {
                     txtView.setBackgroundColor(Color.parseColor("#fbdcbb"));
                     TA.selectedPositions.remove(tt);
+                    FC.setText(String.format("%d",TA.selectedPositions.size()));
                 } else {
                     txtView.setBackgroundColor(getResources().getColor(R.color.colorTuch));
                     TA.selectedPositions.add((Integer) position);
@@ -334,27 +335,35 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        if (id == R.id.action_history)
+        if (id == R.id.action_history_mode)
         {
+
           if(HistoryMode) //if historymode is true then switch it off and load opening screen
-          {HistoryMode=false;
-          model.Divisions.clear();
-           item.setChecked(HistoryMode);
-           model.LoadDivisions();
-           CDD.LoadDivisionsFromPrefs();
-           currentDivision=0;
-           DisplayDivision();
-           setTitle(model.GetDateTimeString());
-
-
-          }
+           { if(modified) {  Msg.show("History modified, Save or Discard First !");
+                             return true;
+                          }
+             HistoryMode=false;
+             model.Divisions.clear();
+             item.setChecked(HistoryMode);
+             model.LoadDivisions();
+             CDD.LoadDivisionsFromPrefs();
+             currentDivision=0;
+             DisplayDivision();
+             setTitle(model.GetDateTimeString());
+             FC.setText(String.format(""));
+           }
           else
-              { HistoryMode=true;
-                  item.setChecked(HistoryMode);
-              model.LoadHistory();
-              currentDivision = model.Divisions.size()-1;
-              DisplayDivision();
-          }
+           { if(modified) {  Msg.show("Attendance Modified, Save or Discard First !");
+               return true;
+           }
+             HistoryMode=true;
+             item.setChecked(HistoryMode);
+             model.LoadHistory();
+             currentDivision = model.Divisions.size()-1;
+             DisplayDivision();
+           }
+            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+            AttendanceInProgress=false;
             return true;
         }
 
@@ -602,11 +611,9 @@ public class MainActivity extends AppCompatActivity
             //    Msg.show("Test");
                int option=item.getItemId();
                switch(option)
-               { case R.id.one : CloseAndSaveAttendance();
-                   break;
+               { case R.id.one : CloseAndSaveAttendance();  FC.setText(""); break;
                  case R.id.two :
-                   Msg.show("Continue Attendance");
-                     break;
+                   Msg.show("Continue Attendance"); break;
                    case R.id.three :
                        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
                        Msg.show("Attendance Discarded");
@@ -614,11 +621,9 @@ public class MainActivity extends AppCompatActivity
                        modified=false;
                        DisplayDivision();
                        AttendanceInProgress=!AttendanceInProgress;
+                       FC.setText("");
                        break;
                }
-
-
-
                 return true;
             }
         });
@@ -663,12 +668,12 @@ void CloseAndSaveAttendance()
     {   TA.Divisions.clear();
         TA.DisplayDivision(model.Divisions.get(currentDivision));
         buttonDivTitle.setText(model.GetDivisionTitle(currentDivision));
-        if(HistoryMode) setTitle(model.DateArray.get(currentDivision));
+        if(HistoryMode) {
+            setTitle(model.DateArray.get(currentDivision));
+            FC.setText(String.format("%d",TA.selectedPositions.size()));
+        }
 
     }
-
-
-
 
 
 
@@ -686,6 +691,7 @@ void CloseAndSaveAttendance()
 
         TA.Fillpositions(Line);
             TA.notifyDataSetChanged();
+        FC.setText(String.format("%d",TA.selectedPositions.size()));
 
     }
 

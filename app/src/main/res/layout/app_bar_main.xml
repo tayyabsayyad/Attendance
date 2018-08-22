@@ -36,7 +36,7 @@
     <TextView android:layout_height="wrap_content"
         android:id="@+id/FabCounter"
         android:layout_width="wrap_content"
-        android:text="OK"
+        android:text=""
         android:elevation="6dp"
         android:textSize="18dp"
         android:textColor="#fff"
