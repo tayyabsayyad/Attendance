@@ -156,19 +156,15 @@ public class MonthlyReport {
             matrix[i][1] = ""+ (startNo+i);
         }
 
-        LoadFromHistory ("IX-A", "08");
+        LoadFromHistory ("XI-C", "08");
         try {
-            String Date = DateArray.get(0);
-            date = Date.substring(0, 2);
-
-            for(int i = 0; i < 40; i++) {
-                for (int r = 0; r < PresencyLine.size(); r++) {
-//                  if(date.equals(StaticRow[r]))
-                    presence = Character.toString(PresencyLine.get(r).charAt(k));
-                    matrix[i][r+2] = presence;
-//                    Msg.show(Integer.toString(PresencyLine.size()));
+            String Date, AttendenceData;
+            for(int i = 0; i < PresencyLine.size(); i++){
+                date = DateArray.get(i).substring(0,2);
+                AttendenceData = PresencyLine.get(i);
+                for(int j = 0; j < 40; j++){
+                    matrix[j][Integer.parseInt(date)+1] = Character.toString(AttendenceData.charAt(j));
                 }
-                if( k < 40)  k++;
             }
 
         } catch (Exception e) {
@@ -189,7 +185,7 @@ public class MonthlyReport {
             headerMatrix[0][i] = HeaderRow[i];
         }
 
-        LoadFromHistory ("FY-A", "08");
+        LoadFromHistory ("XI-C", "08");
         try {
             String date = DateArray.get(0);
             month = date.substring(3, 5);
@@ -199,7 +195,7 @@ public class MonthlyReport {
 
             for(int i = 0; i < Divisions.size(); i++) {
                 Div = Divisions.get(i);
-                attendanceLine = PresencyLine.get(i);
+//                attendanceLine = PresencyLine.get(i);
 //                Msg.show(Div);
 //                Msg.show(attendanceLine);
 
