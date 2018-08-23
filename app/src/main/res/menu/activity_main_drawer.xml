@@ -6,17 +6,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_viewfullreport"
+            android:id="@+id/nav_printmonthlyreport"
             android:icon="@drawable/ic_menu_camera"
-            android:title="View Full Report" />
+            android:title="Print Monthly Report" />
         <item
-            android:id="@+id/nav_printfullreport"
+            android:id="@+id/nav_reserved1"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Print Full Report" />
+            android:title="Reserved Menu 1" />
         <item
-            android:id="@+id/nav_reserved"
+            android:id="@+id/nav_reserved2"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Reserved Menu" />
+            android:title="Reserved Menu 2" />
         <item
             android:id="@+id/nav_setpreferences"
             android:icon="@drawable/ic_menu_manage"

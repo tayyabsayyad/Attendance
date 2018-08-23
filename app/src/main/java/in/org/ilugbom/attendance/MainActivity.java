@@ -402,22 +402,23 @@ public class MainActivity extends AppCompatActivity
 
         switch (id)
         {
-            case R.id.nav_viewfullreport : Msg.show("View-Report Module Pending.."); break;
+            case R.id.nav_printmonthlyreport :
 
-            case R.id.nav_printfullreport :
-
-
+                MonthlyReport MR = new MonthlyReport();
                 try {
-                    createPdf();
+                    MR.AttendanceReportPdf();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (DocumentException e) {
                     e.printStackTrace();
                 }
-                Msg.show("Print-Report Module Pending..");
+                Msg.show("Monthly Report.pdf Created");
+//            return true;
             break;
 
-            case R.id.nav_reserved : Msg.show("Reserved Menu"); break;
+            case R.id.nav_reserved1 : Msg.show("Reserved Menu 1"); break;
+
+            case R.id.nav_reserved2 : Msg.show("Reserved Menu 2"); break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
@@ -698,24 +699,6 @@ void CloseAndSaveAttendance()
 
 
 
-    private void createPdf() throws FileNotFoundException,DocumentException {
-
-
-        File myFile = new File("/sdcard/test.pdf");
-
-        OutputStream output = new FileOutputStream(myFile);
-
-
-        Document document = new Document();
-        PdfWriter.getInstance(
-                document, output);
-        document.open();
-        document.add(new Paragraph("Hello World!"));
-        document.close();
-
-
-
-    }
 
 
 }   /////CLASS END
