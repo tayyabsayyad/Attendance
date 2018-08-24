@@ -1,6 +1,7 @@
 package in.org.ilugbom.attendance;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ import android.widget.TextView;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -46,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -603,7 +606,6 @@ public class MainActivity extends AppCompatActivity
 
     void ShowPopupMenu()
     {
-
         //Creating the instance of PopupMenu
         PopupMenu popup = new PopupMenu(MainActivity.this, fab);
         //Inflating the Popup using xml file
@@ -714,27 +716,28 @@ void CloseAndSaveAttendance()
    }
 
 
-
     private void showAlertDialog() {
         // Prepare grid view
-        GridView gridView = new GridView(this);
 
-        List<Integer> mList = new ArrayList<Integer>();
-        for (int i = 1; i < 36; i++) {
-            mList.add(i);
-        }
+        PickMonthAdapter PMA = new PickMonthAdapter(this);
 
-        gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
-        gridView.setNumColumns(5);
 
+        GridView monthgridView = new GridView(this);
+
+        monthgridView.setAdapter(PMA);
+        monthgridView.setNumColumns(3);
+        monthgridView.setVerticalSpacing(4);
+        monthgridView.setHorizontalSpacing(4);
+        //setPadding(2,2,2,2);
+        monthgridView.setBackgroundColor(Color.WHITE);
 
         // Set grid view to alertDialog
         final AlertDialog builder = new AlertDialog.Builder(this).create();
-        builder.setCancelable(true);
-        builder.setView(gridView);
-        builder.setTitle("Goto");
+//        builder.setCancelable(true);
+        builder.setView(monthgridView);
+        builder.setTitle("Choose Month");
         builder.show();
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
