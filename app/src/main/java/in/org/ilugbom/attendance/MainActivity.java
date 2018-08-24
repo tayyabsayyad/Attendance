@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -404,16 +405,14 @@ public class MainActivity extends AppCompatActivity
         {
             case R.id.nav_printmonthlyreport :
 
-                MonthlyReport MR = new MonthlyReport();
-                try {
-                    MR.AttendanceReportPdf();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                }
-                Msg.show("Monthly Report.pdf Created");
-//            return true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        PrintMonthlyReport();
+                    }
+                }, 300);
+
+
             break;
 
             case R.id.nav_reserved1 : Msg.show("Reserved Menu 1"); break;
@@ -698,7 +697,18 @@ void CloseAndSaveAttendance()
     }
 
 
-
+   void PrintMonthlyReport()
+   {
+       MonthlyReport MR = new MonthlyReport();
+       try {
+           MR.AttendanceReportPdf();
+       } catch (FileNotFoundException e) {
+           e.printStackTrace();
+       } catch (DocumentException e) {
+           e.printStackTrace();
+       }
+       Msg.show("Monthly Report.pdf Created");
+   }
 
 
 }   /////CLASS END
