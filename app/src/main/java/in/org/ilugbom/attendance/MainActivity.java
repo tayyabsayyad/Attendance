@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -44,6 +45,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -415,7 +418,7 @@ public class MainActivity extends AppCompatActivity
 
             break;
 
-            case R.id.nav_reserved1 : Msg.show("Reserved Menu 1"); break;
+            case R.id.nav_reserved1 : showAlertDialog(); break;
 
             case R.id.nav_reserved2 : Msg.show("Reserved Menu 2"); break;
 
@@ -709,6 +712,38 @@ void CloseAndSaveAttendance()
        }
        Msg.show("Monthly Report.pdf Created");
    }
+
+
+
+    private void showAlertDialog() {
+        // Prepare grid view
+        GridView gridView = new GridView(this);
+
+        List<Integer> mList = new ArrayList<Integer>();
+        for (int i = 1; i < 36; i++) {
+            mList.add(i);
+        }
+
+        gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
+        gridView.setNumColumns(5);
+
+
+        // Set grid view to alertDialog
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        builder.setCancelable(true);
+        builder.setView(gridView);
+        builder.setTitle("Goto");
+        builder.show();
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Msg.show(String.format("%d",position));
+
+             builder.dismiss();
+            }
+        });
+    }
 
 
 }   /////CLASS END
