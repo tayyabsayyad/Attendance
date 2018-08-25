@@ -735,7 +735,7 @@ void CloseAndSaveAttendance()
         final AlertDialog builder = new AlertDialog.Builder(this).create();
 //        builder.setCancelable(true);
         builder.setView(monthgridView);
-        builder.setTitle("Choose Month");
+        builder.setTitle("( Div : "+ model.GetDivisionTitle(currentDivision)+" )    Choose Month");
         builder.show();
         monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
