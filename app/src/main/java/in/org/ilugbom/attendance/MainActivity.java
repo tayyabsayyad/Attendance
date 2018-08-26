@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity
     Model model;
     CreateDivDialog CDD=new CreateDivDialog();
     HelpDialog HD=new HelpDialog();
+    MonthlyReport MR = new MonthlyReport();
 
     FloatingActionButton fab;
     boolean fabVisible=true;
@@ -709,7 +710,7 @@ void CloseAndSaveAttendance()
 
    void PrintMonthlyReport()
    {
-       MonthlyReport MR = new MonthlyReport();
+       MR.callcdd(CDD);
        try {
            MR.AttendanceReportPdf();
        } catch (FileNotFoundException e) {

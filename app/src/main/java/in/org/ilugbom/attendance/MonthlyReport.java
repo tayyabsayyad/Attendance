@@ -38,14 +38,10 @@ public class MonthlyReport {
     ArrayList<String> RollNos = new ArrayList<String>();
     ArrayList<String> PresencyLine = new ArrayList<String>();
 
-
-
-    int startNo = 5001, LastNo = 5040;
-    int numberofstudents = LastNo - startNo +1;
-
     int columns = 35;
     String[][] headerMatrix = new String[1][8];
-    String[][] matrix = new String[numberofstudents][columns];
+    String[][] matrix = new String[200][columns];
+
     String Month[] = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY",
             "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
 
@@ -57,6 +53,8 @@ public class MonthlyReport {
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
             "Total", "Percent" };
+
+    void callcdd(CreateDivDialog CDD){ this.CDD = CDD; }
 
     void AttendanceReportPdf() throws FileNotFoundException,DocumentException{
 
@@ -104,15 +102,8 @@ public class MonthlyReport {
         float colwidth[] = {4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,5};
         float colwidth1[] = {7,9,4,6,5,5,5,5};
 
-        String HeaderRow[] = {"Teacher's Name", " ", "Subject", " ",
-                "Class & Div"    ," ", "Month",   " " };
-
         PdfPTable table1 = new PdfPTable(colwidth1);
         table1.setWidthPercentage(100);
-
-//        for(int i = 0; i < HeaderRow.length; i++){
-        //           table1.addCell(HeaderRow[i]);
-        //      }
 
         for(int i = 0; i < headerMatrix[0].length; i++){
             table1.addCell(headerMatrix[0][i]);
@@ -140,31 +131,47 @@ public class MonthlyReport {
     }
 
     void FillMatrix(){
-        String presence = null, date = "";
-        int k = 0 ;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++){
-                matrix[i][j]=" ";
-            }
-        }
+        String date = "", rollRange;
+        String rollNoStart = "", rollNoEnd = "";
 
-        for(int i = 0; i < numberofstudents; i++){
-            matrix[i][0]= "" + (i+1);
-        }
 
-        for(int i = 0; i < numberofstudents; i++){
-            matrix[i][1] = ""+ (startNo+i);
-        }
-
-        LoadFromHistory ("XI-C", "08");
+        LoadFromHistory ("IX-A", "08");
         try {
-            String Date, AttendenceData;
+            String AttendenceData;
+
+            int Last= PresencyLine.size();
+            rollRange = RollNos.get(0);
+            String RollNoArray [] = rollRange.split("-");
+            rollNoStart = RollNoArray[0];
+            rollNoEnd = RollNoArray[1];
+            int TotNoStnts = Integer.parseInt(rollNoEnd)-Integer.parseInt(rollNoStart)+1;
+/*          Msg.show(String.valueOf(Last));
+            Msg.show(rollRange);
+            Msg.show("XI-C");
+            Msg.show(rollNoStart);
+            Msg.show(rollNoEnd);
+            Msg.show(String.valueOf(TotNoStnts));   */
+
+            for (int i = 0; i < TotNoStnts; i++) {         // matrix.length = 120 (Rows)
+                for (int j = 0; j < matrix[i].length; j++){   // matrix[i].length = 35 (Columns)
+                    matrix[i][j]=" ";
+                }
+            }
+
             for(int i = 0; i < PresencyLine.size(); i++){
                 date = DateArray.get(i).substring(0,2);
                 AttendenceData = PresencyLine.get(i);
-                for(int j = 0; j < 40; j++){
+                for(int j = 0; j < TotNoStnts; j++){
                     matrix[j][Integer.parseInt(date)+1] = Character.toString(AttendenceData.charAt(j));
                 }
+            }
+
+            for(int i = 0; i < TotNoStnts; i++){
+                matrix[i][1] = ""+ (Integer.parseInt(rollNoStart)+i);
+            }
+
+            for(int i = 0; i < TotNoStnts; i++){
+                matrix[i][0]= "" + (i+1);
             }
 
         } catch (Exception e) {
@@ -177,7 +184,7 @@ public class MonthlyReport {
         String HeaderRow[] = {"Teacher's Name", " ", "Subject", " ",
                 "Class & Div"    ," ", "Month",   " " };
         String month = "",  Div = "";
-        String rollNo = "", attendanceLine = "";
+
         String TrName = CDD.teacher;
         String Subject = CDD.subject;
 
@@ -185,7 +192,7 @@ public class MonthlyReport {
             headerMatrix[0][i] = HeaderRow[i];
         }
 
-        LoadFromHistory ("XI-C", "08");
+        LoadFromHistory ("IX-A", "08");
         try {
             String date = DateArray.get(0);
             month = date.substring(3, 5);
@@ -195,19 +202,13 @@ public class MonthlyReport {
 
             for(int i = 0; i < Divisions.size(); i++) {
                 Div = Divisions.get(i);
-//                attendanceLine = PresencyLine.get(i);
-//                Msg.show(Div);
-//                Msg.show(attendanceLine);
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        rollNo = RollNos.get(0);
-        Msg.show(rollNo);
-        Msg.show(month);
+//        Msg.show(month);
         headerMatrix[0][1] = TrName;
         headerMatrix[0][3] = Subject;
         headerMatrix[0][5] = Div;
@@ -221,7 +222,7 @@ public class MonthlyReport {
             File FileToRead = new File(FileNameWithPath);
             FileInputStream FINS = new FileInputStream(FileToRead);
             BufferedReader bfrReader = new BufferedReader(new InputStreamReader(FINS));
-            String AttendanceRecord = null;
+            String AttendanceRecord = " ";
             String temp[], Roll;
             DateArray.clear();
             Divisions.clear();
