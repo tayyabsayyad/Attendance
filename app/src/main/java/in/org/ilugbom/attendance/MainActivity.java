@@ -18,6 +18,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -28,14 +30,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -423,7 +428,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_reserved1 : showAlertDialog(); break;
 
-            case R.id.nav_reserved2 : Msg.show("Reserved Menu 2"); break;
+            case R.id.nav_reserved2 : ShowToast();Msg.show("Reserved Menu 2"); break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
@@ -746,6 +751,30 @@ void CloseAndSaveAttendance()
              builder.dismiss();
             }
         });
+    }
+
+
+    void ShowToast()
+    {// Get your custom_toast.xml ayout
+        LayoutInflater inflater = getLayoutInflater();
+
+        View layout = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+// set image
+
+        ImageView image = (ImageView) layout.findViewById(R.id.image);
+        image.setImageResource(R.drawable.hand72);
+// set a message
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText("Button is clicked ");
+
+// Toast...
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+
     }
 
 
