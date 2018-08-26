@@ -764,10 +764,10 @@ void CloseAndSaveAttendance()
 // set image
 
         ImageView image = (ImageView) layout.findViewById(R.id.image);
-        image.setImageResource(R.drawable.hand72);
+        image.setImageResource(R.drawable.fab_blue_green72);
 // set a message
         TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText("Button is clicked ");
+        text.setText("Tap Attendance Button");
 
 // Toast...
         Toast toast = new Toast(getApplicationContext());
