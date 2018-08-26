@@ -131,9 +131,7 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id)
             {
-               if(!AttendanceInProgress) { Msg.show("Press Attendance Button"); return;}
-
-
+               if(!AttendanceInProgress) { Msg.Show("Tap Attendance Button"); return;}
                // Attendance in  Progress
                 int firstPosition = gridView.getFirstVisiblePosition();
                 int childPosition = position - firstPosition;
@@ -246,7 +244,7 @@ public class MainActivity extends AppCompatActivity
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {   if(AttendanceInProgress) { Msg.show("Attendance in Progress"); return; }
+            {   if(AttendanceInProgress) { Msg.Show("Attendance in Progress"); return; }
 
                 currentDivision--;
                 if (currentDivision < 0) currentDivision = model.Divisions.size() - 1;
@@ -259,7 +257,7 @@ public class MainActivity extends AppCompatActivity
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            { if(AttendanceInProgress){ Msg.show("Attendance in Progress"); return; }
+            { if(AttendanceInProgress){ Msg.Show("Attendance in Progress"); return; }
                 currentDivision++;
                 if (currentDivision > model.Divisions.size() - 1) currentDivision = 0;
                 DisplayDivision();
@@ -429,7 +427,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_reserved1 : showAlertDialog(); break;
 
-            case R.id.nav_reserved2 : ShowToast();Msg.show("Reserved Menu 2"); break;
+            case R.id.nav_reserved2 : Msg.Show("Reserved Menu 2");; break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
@@ -754,29 +752,6 @@ void CloseAndSaveAttendance()
         });
     }
 
-
-    void ShowToast()
-    {// Get your custom_toast.xml ayout
-        LayoutInflater inflater = getLayoutInflater();
-
-        View layout = inflater.inflate(R.layout.custom_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_layout_id));
-// set image
-
-        ImageView image = (ImageView) layout.findViewById(R.id.image);
-        image.setImageResource(R.drawable.fab_blue_green72);
-// set a message
-        TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText("Tap Attendance Button");
-
-// Toast...
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-
-    }
 
 
 }   /////CLASS END
