@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {   if(AttendanceInProgress) { Msg.Show("Attendance in Progress"); return; }
+            {   if(AttendanceInProgress) { Msg.ImageMessage("Attendance in Progress",R.drawable.blue_red_60); return; }
 
                 currentDivision--;
                 if (currentDivision < 0) currentDivision = model.Divisions.size() - 1;
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            { if(AttendanceInProgress){ Msg.Show("Attendance in Progress"); return; }
+            { if(AttendanceInProgress) { Msg.ImageMessage("Attendance in Progress",R.drawable.blue_red_60); return; }
                 currentDivision++;
                 if (currentDivision > model.Divisions.size() - 1) currentDivision = 0;
                 DisplayDivision();
@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_delete_record)
         {
 //           model.Divisions.remove(currentDivision);
-            if(!HistoryMode) { Msg.ImageMessage("History Mode Off",R.drawable.fab_exclaimation); return true; }
+            if(!HistoryMode) { Msg.ImageMessage("History Mode Off",R.drawable.exclaimation60); return true; }
 
             DeleteHistoryRecord();
           //  Msg.show("History - Del Record");

@@ -61,7 +61,7 @@ public class Msg
         image.setImageResource(imageid);
         // set a message
         TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText(msg+" "); //give padding right
+        text.setText(msg+"  "); //give padding right
 
 // Toast...
         Toast toast = new Toast(MA);
