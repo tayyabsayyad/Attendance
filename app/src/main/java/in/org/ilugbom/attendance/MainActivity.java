@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id)
             {
-               if(!AttendanceInProgress) { Msg.Show("Tap Attendance Button"); return;}
+               if(!AttendanceInProgress) { Msg.ImageMessage("Tap Attendance Button",R.drawable.fab_blue_green72); return;}
                // Attendance in  Progress
                 int firstPosition = gridView.getFirstVisiblePosition();
                 int childPosition = position - firstPosition;
@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_invert_selection)
         {
             InvertAttendance();
-            Msg.show("Invert Selection");
+            Msg.Show("Selection Inverted");
             return true;
         }
 
@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity
         {
 
           if(HistoryMode) //if historymode is true then switch it off and load opening screen
-           { if(modified) {  Msg.show("History modified, Save or Discard First !");
+           { if(modified) {  Msg.Show("History modified, Save or Discard First !");
                              return true;
                           }
              HistoryMode=false;
@@ -367,7 +367,7 @@ public class MainActivity extends AppCompatActivity
              FC.setText(String.format(""));
            }
           else
-           { if(modified) {  Msg.show("Attendance Modified, Save or Discard First !");
+           { if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
                return true;
            }
              HistoryMode=true;
@@ -385,7 +385,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_delete_record)
         {
 //           model.Divisions.remove(currentDivision);
-            if(!HistoryMode) { Msg.show("History Mode Off, Nothing To delete"); return true; }
+            if(!HistoryMode) { Msg.ImageMessage("History Mode Off",R.drawable.fab_exclaimation); return true; }
 
             DeleteHistoryRecord();
           //  Msg.show("History - Del Record");
@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
-            case R.id.nav_share : Msg.show("Share-Module Pending..");break;
+            case R.id.nav_share : Msg.Show("Share-Module Pending..");break;
 
             case R.id.nav_send : sbbe.Send(CDD.email); break;
         }
@@ -447,7 +447,7 @@ public class MainActivity extends AppCompatActivity
        // ShowPopupMenu();
         if(!AttendanceInProgress) {
             fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorPink));
-            Msg.show("Mark Attendance");
+            Msg.Show("Mark Attendance");
             AttendanceInProgress=!AttendanceInProgress;
         }
 
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity
                     // Toast.makeText(getApplicationContext(),
                     //       "Division Deleted",Toast.LENGTH_LONG).show();
                     model.SaveHistory();
-                    Msg.show("History Record Deleted");
+                    Msg.Show("History Record Deleted");
                     //CDD.SaveDivisionsInPrefs();
 
                 }
@@ -585,7 +585,7 @@ public class MainActivity extends AppCompatActivity
                     DisplayDivision();
                    // Toast.makeText(getApplicationContext(),
                      //       "Division Deleted",Toast.LENGTH_LONG).show();
-                    Msg.show("Division Deleted");
+                    Msg.Show("Division Deleted");
                     CDD.SaveDivisionsInPrefs();
 
                 }
@@ -625,10 +625,10 @@ public class MainActivity extends AppCompatActivity
                switch(option)
                { case R.id.one : CloseAndSaveAttendance(); break;
                  case R.id.two :
-                   Msg.show("Continue Attendance"); break;
+                   Msg.Show("Continue Attendance"); break;
                    case R.id.three :
                        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-                       Msg.show("Attendance Discarded");
+                       Msg.Show("Attendance Discarded");
                        TA.selectedPositions.clear();
                        modified=false;
                        AttendanceInProgress=!AttendanceInProgress;
@@ -689,7 +689,7 @@ void CloseAndSaveAttendance()
 
     void InvertAttendance()
     {
-        if(!AttendanceInProgress) {Msg.show("Attendance Mode Off"); return;}
+        if(!AttendanceInProgress) {Msg.Show("Attendance Mode Off"); return;}
         String Line="";
             for(int i=0;i<TA.numbers.length;i++)
             {Integer tt=new Integer(i);
@@ -716,7 +716,7 @@ void CloseAndSaveAttendance()
        } catch (DocumentException e) {
            e.printStackTrace();
        }
-       Msg.show("Monthly Report.pdf Created");
+       Msg.Show("Monthly Report.pdf Created");
    }
 
 
@@ -745,7 +745,7 @@ void CloseAndSaveAttendance()
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Msg.show(String.format("%d",position));
+                Msg.Show(String.format("%d",position));
 
              builder.dismiss();
             }

@@ -81,7 +81,7 @@ public class Model
             myOutWriter.append(txtData);
             myOutWriter.close();
             fOut.close();
-            Msg.show("Attendance Saved ");
+            Msg.Show("Attendance Saved");
 
         } catch (Exception e)
         {
@@ -128,7 +128,7 @@ public class Model
             }
             myReader.close();
 
-            Msg.show("Loaded From SD Card");
+            Msg.Show("History Loaded ");
         }
         catch (Exception e)
 
@@ -166,7 +166,7 @@ public class Model
             myOutWriter.append(txtData);
             myOutWriter.close();
             fOut.close();
-            Msg.show("History Saved ");
+            Msg.Show("History Saved");
 
 
         } catch (Exception e)
