@@ -427,7 +427,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_reserved1 : showAlertDialog(); break;
 
-            case R.id.nav_reserved2 : Msg.Show("Reserved Menu 2");; break;
+            case R.id.nav_reserved2 : ShowDayMonthDailog();break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
@@ -751,6 +751,46 @@ void CloseAndSaveAttendance()
             }
         });
     }
+
+
+
+
+    private void ShowDayMonthDailog() {
+        // Prepare grid view
+
+        PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(this);
+
+        PDMA.SetDays(31);
+        GridView monthgridView = new GridView(this);
+
+        monthgridView.setAdapter(PDMA);
+        monthgridView.setNumColumns(3);
+        monthgridView.setVerticalSpacing(4);
+        monthgridView.setHorizontalSpacing(4);
+        //setPadding(2,2,2,2);
+        monthgridView.setBackgroundColor(Color.WHITE);
+
+        // Set grid view to alertDialog
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+//        builder.setCancelable(true);
+        builder.setView(monthgridView);
+        builder.setTitle("( Div : "+ model.GetDivisionTitle(currentDivision)+" )    Choose Month");
+        builder.show();
+        monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Msg.Show(String.format("%d",position));
+
+                builder.dismiss();
+            }
+        });
+    }
+
+
+
+
+
 
 
 
