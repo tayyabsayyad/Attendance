@@ -1,6 +1,7 @@
 package in.org.ilugbom.attendance;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -31,6 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -427,7 +429,12 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_reserved1 : showAlertDialog(); break;
 
-            case R.id.nav_reserved2 : ShowDayMonthDailog();break;
+            case R.id.nav_reserved2 : ShowDayMonthDailog();
+                //DayMonthPickerDlg dmpd=new DayMonthPickerDlg();
+                //dmpd.SetMA(MainActivity.this);
+                //dmpd.Prepare();
+                //dmpd.showDialog(MainActivity.this);
+            break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
@@ -753,27 +760,57 @@ void CloseAndSaveAttendance()
     }
 
 
+     void ShowDayMonthDailog() {
+
+         final Dialog dialog = new Dialog(this);
+         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+         dialog.setContentView(R.layout.day_month_picker);
+         //
+
+         GridView gView= (GridView)dialog.findViewById(R.id.grid31);
+         PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(this);
+        // gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
+         PDMA.SetDays(31);
+         gView.setAdapter(PDMA);
+         gView.setNumColumns(5);
+         gView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+             @Override
+             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                 dialog.dismiss();
+             }
+         });
+
+         dialog.show();
+     }
 
 
-    private void ShowDayMonthDailog() {
-        // Prepare grid view
+         /*
 
         PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(this);
 
-        PDMA.SetDays(31);
-        GridView monthgridView = new GridView(this);
+        //PDMA.SetDays(31);
+        GridView monthgridView = (GridView) findViewById(R.id.grid31);
 
         monthgridView.setAdapter(PDMA);
         monthgridView.setNumColumns(3);
         monthgridView.setVerticalSpacing(4);
         monthgridView.setHorizontalSpacing(4);
+
+         for (int i = 0; i < 31; i++) {
+             PDMA.numbers[i] = String.format("%d", i + 1);
+         }
         //setPadding(2,2,2,2);
         monthgridView.setBackgroundColor(Color.WHITE);
 
-        // Set grid view to alertDialog
         final AlertDialog builder = new AlertDialog.Builder(this).create();
-//        builder.setCancelable(true);
-        builder.setView(monthgridView);
+       //  builder.set
+         LayoutInflater inflater = this.getLayoutInflater();
+         View dialogView = inflater.inflate(R.layout.day_month_picker,null);
+         builder.setView(dialogView);
+        // PDMA.SetDays(31);
+
+
+     //   builder.setView(monthgridView);
         builder.setTitle("( Div : "+ model.GetDivisionTitle(currentDivision)+" )    Choose Month");
         builder.show();
         monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -784,17 +821,32 @@ void CloseAndSaveAttendance()
 
                 builder.dismiss();
             }
+
+
+
         });
-    }
 
-
-
-
-
-
+*/
 
 
 }   /////CLASS END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
