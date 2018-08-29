@@ -22,7 +22,7 @@
             android:id="@+id/monthLeft"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/backward"
+            android:background="@drawable/backward2"
             android:layout_weight="0"
             android:padding="30sp"
             /><!-- set 30dp padding from all the sides of the view-->
@@ -40,7 +40,7 @@
             android:id="@+id/monthRight"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/forward"
+            android:background="@android:color/transparent"
             android:layout_weight="0"
             android:padding="30sp"
             /><!-- set 30dp padding from all the sides of the view-->

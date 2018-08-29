@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity
     HelpDialog HD=new HelpDialog();
     MonthlyReport MR = new MonthlyReport();
 
+    DayMonthPickerDlg dmpd=new DayMonthPickerDlg();
+
+    //dmpd.Prepare();
+    //dmpd.showDialog(MainActivity.this);
+
+
     FloatingActionButton fab;
     boolean fabVisible=true;
     boolean AttendanceInProgress=false;
@@ -113,7 +119,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         msg.SetMA(this);
         sbbe.SetMA(this);
-
+        dmpd.SetMA(this);
         FC=(TextView) findViewById(R.id.FabCounter);
 
         TA = new TextAdapter(this);
@@ -429,11 +435,10 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_reserved1 : showAlertDialog(); break;
 
-            case R.id.nav_reserved2 : ShowDayMonthDailog();
-                //DayMonthPickerDlg dmpd=new DayMonthPickerDlg();
-                //dmpd.SetMA(MainActivity.this);
-                //dmpd.Prepare();
-                //dmpd.showDialog(MainActivity.this);
+            case R.id.nav_reserved2 :
+
+                dmpd.ShowDayMonthDailog();
+
             break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
@@ -760,28 +765,6 @@ void CloseAndSaveAttendance()
     }
 
 
-     void ShowDayMonthDailog() {
-
-         final Dialog dialog = new Dialog(this);
-         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-         dialog.setContentView(R.layout.day_month_picker);
-         //
-
-         GridView gView= (GridView)dialog.findViewById(R.id.grid31);
-         PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(this);
-        // gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
-         PDMA.SetDays(31);
-         gView.setAdapter(PDMA);
-         gView.setNumColumns(5);
-         gView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-             @Override
-             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                 dialog.dismiss();
-             }
-         });
-
-         dialog.show();
-     }
 
 
          /*
