@@ -1,7 +1,12 @@
 package in.org.ilugbom.attendance;
 
+import android.graphics.Color;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -26,11 +31,17 @@ import java.util.ArrayList;
 import javax.security.auth.Subject;
 
 import static android.media.CamcorderProfile.get;
+import static in.org.ilugbom.attendance.MainActivity.currentDivision;
 
 public class MonthlyReport {
 
+    String DIV,MONT;
+    void SetDIVMON(String div,String month) { DIV=div; MONT=month; }
+    void callcdd(CreateDivDialog CDD){ this.CDD = CDD; }
+
     Model model = new Model();
     CreateDivDialog CDD=new CreateDivDialog();
+    private MainActivity MA;
     Msg msg=new Msg();
 
     ArrayList<String> DateArray = new ArrayList<String>();
@@ -54,10 +65,13 @@ public class MonthlyReport {
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
             "Total", "Percent" };
 
-    void callcdd(CreateDivDialog CDD){ this.CDD = CDD; }
+    void SetRef(Model model){this.model=model;}
+    void SetMA(MainActivity MA){this.MA=MA;}
 
     void AttendanceReportPdf() throws FileNotFoundException,DocumentException{
 
+        matrix = new String[200][columns];
+        headerMatrix = new String[1][8];
         File myFile = new File("/sdcard/Monthly Report.pdf");
 
         OutputStream output = new FileOutputStream(myFile);
@@ -73,9 +87,7 @@ public class MonthlyReport {
         matrixtoPdf(document);
 
         document.close();
-
     }
-
 
     void AddHeader(Document document) throws DocumentException
     {
@@ -91,10 +103,7 @@ public class MonthlyReport {
         table.addCell(cell);
 
         table.setSpacingAfter(5f);
-//        table1.setSpacingAfter(5f);
-
         document.add(table);
-//        document.add(table1);
     }
 
     public void matrixtoPdf(Document document) throws DocumentException{
@@ -127,15 +136,13 @@ public class MonthlyReport {
         table1.setSpacingAfter(2f);
         document.add(table1);
         document.add(table);
-
     }
 
     void FillMatrix(){
         String date = "", rollRange;
         String rollNoStart = "", rollNoEnd = "";
 
-
-        LoadFromHistory ("IX-A", "08");
+        LoadFromHistory (DIV, MONT);
         try {
             String AttendenceData;
 
@@ -145,14 +152,8 @@ public class MonthlyReport {
             rollNoStart = RollNoArray[0];
             rollNoEnd = RollNoArray[1];
             int TotNoStnts = Integer.parseInt(rollNoEnd)-Integer.parseInt(rollNoStart)+1;
-/*          Msg.show(String.valueOf(Last));
-            Msg.show(rollRange);
-            Msg.show("XI-C");
-            Msg.show(rollNoStart);
-            Msg.show(rollNoEnd);
-            Msg.show(String.valueOf(TotNoStnts));   */
 
-            for (int i = 0; i < TotNoStnts; i++) {         // matrix.length = 120 (Rows)
+            for (int i = 0; i < TotNoStnts; i++) {         // matrix.length = Tot No of Students
                 for (int j = 0; j < matrix[i].length; j++){   // matrix[i].length = 35 (Columns)
                     matrix[i][j]=" ";
                 }
@@ -183,7 +184,10 @@ public class MonthlyReport {
     void FillHeaderMmatrix(){
         String HeaderRow[] = {"Teacher's Name", " ", "Subject", " ",
                 "Class & Div"    ," ", "Month",   " " };
-        String month = "",  Div = "";
+        String month = "";
+
+//        Div = CDD.tempDivTitle;
+//        Div=model.GetDivisionTitle(currentDivision);
 
         String TrName = CDD.teacher;
         String Subject = CDD.subject;
@@ -192,7 +196,7 @@ public class MonthlyReport {
             headerMatrix[0][i] = HeaderRow[i];
         }
 
-        LoadFromHistory ("IX-A", "08");
+        LoadFromHistory (DIV, MONT);
         try {
             String date = DateArray.get(0);
             month = date.substring(3, 5);
@@ -201,7 +205,7 @@ public class MonthlyReport {
             }
 
             for(int i = 0; i < Divisions.size(); i++) {
-                Div = Divisions.get(i);
+                DIV = Divisions.get(i);
             }
 
         } catch (Exception e) {
@@ -211,7 +215,7 @@ public class MonthlyReport {
 //        Msg.show(month);
         headerMatrix[0][1] = TrName;
         headerMatrix[0][3] = Subject;
-        headerMatrix[0][5] = Div;
+        headerMatrix[0][5] = DIV;
         headerMatrix[0][7] = month;
     }
 
@@ -245,8 +249,6 @@ public class MonthlyReport {
             Msg.show(e.getMessage());
             //    Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
-
     }
-
 
 }

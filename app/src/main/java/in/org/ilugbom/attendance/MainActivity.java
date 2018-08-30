@@ -426,14 +426,15 @@ public class MainActivity extends AppCompatActivity
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        PrintMonthlyReport();
+                        showAlertDialog();
                     }
                 }, 300);
 
 
             break;
 
-            case R.id.nav_reserved1 : showAlertDialog(); break;
+            case R.id.nav_reserved1 : Msg.Show("Reserved 1");break;
+
 
             case R.id.nav_reserved2 :
 
@@ -718,25 +719,25 @@ void CloseAndSaveAttendance()
     }
 
 
-   void PrintMonthlyReport()
-   {
-       MR.callcdd(CDD);
-       try {
-           MR.AttendanceReportPdf();
-       } catch (FileNotFoundException e) {
-           e.printStackTrace();
-       } catch (DocumentException e) {
-           e.printStackTrace();
-       }
-       Msg.Show("Monthly Report.pdf Created");
-   }
+
+    void PrintMonthlyReport(String div,String month)
+    {
+        MR.callcdd(CDD);
+        MR.SetDIVMON(div, month);
+        try {
+            MR.AttendanceReportPdf();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        Msg.show("Monthly Report.pdf Created");
+    }
 
 
     private void showAlertDialog() {
         // Prepare grid view
-
         PickMonthAdapter PMA = new PickMonthAdapter(this);
-
         GridView monthgridView = new GridView(this);
 
         monthgridView.setAdapter(PMA);
@@ -745,7 +746,6 @@ void CloseAndSaveAttendance()
         monthgridView.setHorizontalSpacing(4);
         //setPadding(2,2,2,2);
         monthgridView.setBackgroundColor(Color.WHITE);
-
         // Set grid view to alertDialog
         final AlertDialog builder = new AlertDialog.Builder(this).create();
 //        builder.setCancelable(true);
@@ -756,9 +756,12 @@ void CloseAndSaveAttendance()
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Msg.Show(String.format("%d",position));
+                String month=String.format("%02d",position+1);
+                String div=model.GetDivisionTitle(currentDivision);
 
-             builder.dismiss();
+                Msg.show(div);Msg.show(month);
+                PrintMonthlyReport(div,month);
+                builder.dismiss();
             }
         });
     }
