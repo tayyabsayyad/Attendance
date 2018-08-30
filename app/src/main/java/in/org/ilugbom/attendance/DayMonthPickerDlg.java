@@ -36,8 +36,7 @@ public class DayMonthPickerDlg extends AppCompatActivity
             }
         });
 
-
-        Button monthRight =  dialog.findViewById(R.id.monthRight);
+        ImageButton monthRight = (ImageButton) dialog.findViewById(R.id.monthRight);
         monthRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -45,6 +44,17 @@ public class DayMonthPickerDlg extends AppCompatActivity
             }
         });
 
+
+
+/*
+        Button monthRight =  dialog.findViewById(R.id.monthRight);
+        monthRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {  Msg.Show("Right");
+            }
+        });
+*/
 
         GridView gView= (GridView)dialog.findViewById(R.id.grid31);
         PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(MA);
@@ -61,21 +71,9 @@ public class DayMonthPickerDlg extends AppCompatActivity
 
 
         dialog.show();
-/*
-        ImageButton  mLeft = (ImageButton) dialog.findViewById(R.id.monthLeft);
 
 
-             Msg.Show("Left");
-        });
 
-        monthRight = (ImageButton) dialog.findViewById(R.id.monthRight);
-        monthRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {  Msg.Show("Right");
-            }
-        });
-*/
     }
 
 }

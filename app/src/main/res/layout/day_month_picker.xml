@@ -18,11 +18,11 @@
         android:background="@color/colorGreen"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/monthLeft"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/backward2"
+            android:background="@drawable/backward"
             android:layout_weight="0"
             android:padding="30sp"
             /><!-- set 30dp padding from all the sides of the view-->
@@ -36,11 +36,11 @@
             android:background="@android:color/transparent"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/monthRight"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
+            android:background="@drawable/forward"
             android:layout_weight="0"
             android:padding="30sp"
             /><!-- set 30dp padding from all the sides of the view-->
