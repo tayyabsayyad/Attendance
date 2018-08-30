@@ -737,7 +737,6 @@ void CloseAndSaveAttendance()
 
         PickMonthAdapter PMA = new PickMonthAdapter(this);
 
-
         GridView monthgridView = new GridView(this);
 
         monthgridView.setAdapter(PMA);

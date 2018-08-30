@@ -11,14 +11,17 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 
 /**
- * Created by student on 8/28/18.
+ * Created by Milind on 8/28/18.
  */
 
 public class DayMonthPickerDlg extends AppCompatActivity
-{   //PickDayAndMonthAdapter PDMA;
+{
     MainActivity MA;
     GridView g31;
 
+    String Month[]={"January","February","March","April","May","June","July","August","September","October","November","December" };
+    int     Days[]={31,29,31,30,31,30,31,31,30,31,30,31};
+    int monthindex=0;
     void SetMA(MainActivity MA){this.MA=MA;}
 
     void ShowDayMonthDailog() {
@@ -28,11 +31,35 @@ public class DayMonthPickerDlg extends AppCompatActivity
         dialog.setContentView(R.layout.day_month_picker);
 
 
-        Button monthTitle =  dialog.findViewById(R.id.monthTitle);
-        monthTitle.setOnClickListener(new View.OnClickListener() {
+
+        GridView gView= (GridView)dialog.findViewById(R.id.grid31);
+        final PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(MA);
+        // gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
+        PDMA.SetDays(31);
+        gView.setAdapter(PDMA);
+        gView.setNumColumns(4);
+        gView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String date=String.format("%02d/%02d",position+1,monthindex+1);
+                Msg.Show(date);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+
+        final Button MidTitleButton= (Button) dialog.findViewById(R.id.monthTitle);
+        MidTitleButton.setText(Month[monthindex]);
+
+        ImageButton monthLeft = (ImageButton) dialog.findViewById(R.id.monthLeft);
+        monthLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {  Msg.Show("Mid");
+            {  monthindex--;if(monthindex<0) monthindex=11;
+               PDMA.SetDays(Days[monthindex]);
+               MidTitleButton.setText(Month[monthindex]);
             }
         });
 
@@ -40,40 +67,25 @@ public class DayMonthPickerDlg extends AppCompatActivity
         monthRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {  Msg.Show("Right");
+            {   monthindex++;if(monthindex>11) monthindex=0;
+                PDMA.SetDays(Days[monthindex]);
+                MidTitleButton.setText(Month[monthindex]);
             }
         });
 
 
 
-/*
-        Button monthRight =  dialog.findViewById(R.id.monthRight);
-        monthRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {  Msg.Show("Right");
-            }
-        });
-*/
-
-        GridView gView= (GridView)dialog.findViewById(R.id.grid31);
-        PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(MA);
-        // gridView.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, mList));
-        PDMA.SetDays(31);
-        gView.setAdapter(PDMA);
-        gView.setNumColumns(5);
-        gView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialog.dismiss();
-            }
-        });
 
 
-        dialog.show();
 
 
 
     }
+
+
+
+
+
+
 
 }

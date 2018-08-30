@@ -41,7 +41,7 @@ public class PickDayAndMonthAdapter extends BaseAdapter
 
     void SetDays(int len)
 
-{
+{   numbers=new String[len];
     for (int i =0; i <len; i++) {
         numbers[i] = String.format("%d",i+1 );
         notifyDataSetChanged();
