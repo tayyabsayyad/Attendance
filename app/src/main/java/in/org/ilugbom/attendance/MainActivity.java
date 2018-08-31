@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
     SendBackupByEmail sbbe=new SendBackupByEmail();
 
     Model model;
+    Menu mmm;
     CreateDivDialog CDD=new CreateDivDialog();
     HelpDialog HD=new HelpDialog();
     MonthlyReport MR = new MonthlyReport();
@@ -313,6 +314,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        mmm=menu;
         return true;
     }
 
@@ -785,7 +787,8 @@ void    SetHistoryMode()
     void JumpOnDate(String DayMonth)
     {
       if(modified) { Msg.Show("Save Before Jump"); return;}
-      if(!HistoryMode) SetHistoryMode();
+      if(!HistoryMode) { SetHistoryMode(); mmm.getItem(4).setChecked(true); }
+
       if(model.DateArray.size()>0)
       {   boolean found=false;
           for(int i=0;i<model.DateArray.size();i++)
