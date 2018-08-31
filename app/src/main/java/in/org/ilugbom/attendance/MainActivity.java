@@ -356,35 +356,19 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (id == R.id.action_history_mode)
-        {
-
-          if(HistoryMode) //if historymode is true then switch it off and load opening screen
-           { if(modified) {  Msg.Show("History modified, Save or Discard First !");
-                             return true;
-                          }
-             HistoryMode=false;
-             model.Divisions.clear();
-             item.setChecked(HistoryMode);
-             model.LoadDivisions();
-             CDD.LoadDivisionsFromPrefs();
-             currentDivision=0;
-             DisplayDivision();
-             setTitle(model.GetDateTimeString());
-             FC.setText(String.format(""));
-             Msg.Show("History Mode Off");
-           }
-          else
-           { if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
-               return true;
-           }
-             HistoryMode=true;
-             item.setChecked(HistoryMode);
-             model.LoadHistory();
-             currentDivision = model.Divisions.size()-1;
-             DisplayDivision();
-           }
-            fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
-            AttendanceInProgress=false;
+        {  if(HistoryMode)   /// if historymode is ON
+            { if(modified) {  Msg.Show("History modified, Save or Discard First !");
+                            return true;}
+                SetHistoryMode(); // switch off history
+                item.setChecked(false);
+                return true;
+            }
+            //// Now Attendance ON HistoryMode OFF
+            if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
+                return true; }
+               // otherwise switch history mode to ON
+            SetHistoryMode();
+            item.setChecked(true);
             return true;
         }
 
@@ -771,9 +755,37 @@ void CloseAndSaveAttendance()
     }
 
 
-    void JumpOnDate(String DayMonth)
-    { if(!HistoryMode) Msg.Show("History Mode Off");
+void    SetHistoryMode()
+    {
+        if(HistoryMode) //if historymode is true then switch it off and load opening screen
+        {
+            HistoryMode=false;
+            model.Divisions.clear();
+            model.LoadDivisions();
+            CDD.LoadDivisionsFromPrefs();
+            currentDivision=0;
+            DisplayDivision();
+            setTitle(model.GetDateTimeString());
+            FC.setText(String.format(""));
+            Msg.Show("History Mode Off");
+        }
+        else
+        {
+            HistoryMode=true;
+            model.LoadHistory();
+            currentDivision = model.Divisions.size()-1;
+            DisplayDivision();
+        }
+        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+        AttendanceInProgress=false;
 
+    }
+
+
+    void JumpOnDate(String DayMonth)
+    {
+      if(modified) { Msg.Show("Save Before Jump"); return;}
+      if(!HistoryMode) SetHistoryMode();
       if(model.DateArray.size()>0)
       {   boolean found=false;
           for(int i=0;i<model.DateArray.size();i++)
