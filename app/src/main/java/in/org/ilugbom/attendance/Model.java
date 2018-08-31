@@ -128,7 +128,7 @@ public class Model
             }
             myReader.close();
 
-            Msg.Show("History Loaded ");
+            Msg.Show("History Mode On");
         }
         catch (Exception e)
 

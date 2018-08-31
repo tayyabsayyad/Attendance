@@ -10,17 +10,18 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Print Monthly Report" />
         <item
-            android:id="@+id/nav_reserved1"
+            android:id="@+id/nav_jump"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Reserved Menu 1" />
-        <item
-            android:id="@+id/nav_reserved2"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Reserved Menu 2" />
+            android:title="Jump On Date" />
+
         <item
             android:id="@+id/nav_setpreferences"
             android:icon="@drawable/ic_menu_manage"
             android:title="Set Preferences" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Help" />
     </group>
 
     <item android:title="Communicate">

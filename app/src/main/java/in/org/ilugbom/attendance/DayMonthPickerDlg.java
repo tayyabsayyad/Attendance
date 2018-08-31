@@ -42,7 +42,7 @@ public class DayMonthPickerDlg extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String date=String.format("%02d/%02d",position+1,monthindex+1);
-                Msg.Show(date);
+                MA.JumpOnDate(date);
                 dialog.dismiss();
             }
         });

@@ -43,11 +43,4 @@
         android:title="History Mode - Delete Record"
         app:showAsAction="never" />
 
-
-    <item
-        android:id="@+id/action_help"
-        android:orderInCategory="800"
-        android:title="Help"
-        app:showAsAction="never" />
-
 </menu>

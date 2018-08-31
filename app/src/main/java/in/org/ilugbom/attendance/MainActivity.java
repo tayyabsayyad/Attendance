@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -77,10 +79,6 @@ public class MainActivity extends AppCompatActivity
     MonthlyReport MR = new MonthlyReport();
 
     DayMonthPickerDlg dmpd=new DayMonthPickerDlg();
-
-    //dmpd.Prepare();
-    //dmpd.showDialog(MainActivity.this);
-
 
     FloatingActionButton fab;
     boolean fabVisible=true;
@@ -373,6 +371,7 @@ public class MainActivity extends AppCompatActivity
              DisplayDivision();
              setTitle(model.GetDateTimeString());
              FC.setText(String.format(""));
+             Msg.Show("History Mode Off");
            }
           else
            { if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
@@ -401,13 +400,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        if (id == R.id.action_help)
-        {
-
-            HD.showDialog(MainActivity.this);
-            return true;
-        }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -430,21 +422,15 @@ public class MainActivity extends AppCompatActivity
                     }
                 }, 300);
 
-
             break;
 
-            case R.id.nav_reserved1 : Msg.Show("Reserved 1");break;
+            case R.id.nav_jump :  dmpd.ShowDayMonthDailog(); break;
 
-
-            case R.id.nav_reserved2 :
-
-                dmpd.ShowDayMonthDailog();
-
-            break;
+            case R.id.nav_help : HD.showDialog(MainActivity.this); break;
 
             case R.id.nav_setpreferences : CDD.showPreferenceDialog(MainActivity.this); break;
 
-            case R.id.nav_share : Msg.Show("Share-Module Pending..");break;
+            case R.id.nav_share : ShareFile();break;
 
             case R.id.nav_send : sbbe.Send(CDD.email); break;
         }
@@ -514,12 +500,7 @@ public class MainActivity extends AppCompatActivity
         CDD.tempFroll=temp2[0];
         CDD.tempLroll=temp2[1];
         CDD.showDialog(MainActivity.this);
-
-
     }
-
-
-
 
 
     String GetAttendanceLine()
@@ -767,70 +748,46 @@ void CloseAndSaveAttendance()
     }
 
 
+    public void ShareFile(){
+
+        String FileNameWithPath = "/sdcard/AttendanceData.atd";
+
+        File myFile = new File(FileNameWithPath);
+
+        Intent intentShareFile = new Intent(Intent.ACTION_SEND);
+        if(myFile.exists())
+        {
+            intentShareFile.setType("application/text");
+            intentShareFile.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(myFile));
+
+            intentShareFile.putExtra(Intent.EXTRA_SUBJECT,
+                    "Sharing File Attendance...");
+            intentShareFile.putExtra(Intent.EXTRA_TEXT, "Sharing Attendance File For Backup Purpos...");
+
+            this.startActivity(Intent.createChooser(intentShareFile, "Share File Attendance Data"));
+        }
+        else
+            Msg.Show("File Not Found");
+    }
 
 
-         /*
+    void JumpOnDate(String DayMonth)
+    { if(!HistoryMode) Msg.Show("History Mode Off");
 
-        PickDayAndMonthAdapter PDMA = new PickDayAndMonthAdapter(this);
+      if(model.DateArray.size()>0)
+      {   boolean found=false;
+          for(int i=0;i<model.DateArray.size();i++)
+          if(model.DateArray.get(i).contains(DayMonth))
+            {currentDivision=i; found=true; }
+          DisplayDivision();
+          if(!found) Msg.Show(DayMonth+"  Not Found");
+      }
 
-        //PDMA.SetDays(31);
-        GridView monthgridView = (GridView) findViewById(R.id.grid31);
+    }
 
-        monthgridView.setAdapter(PDMA);
-        monthgridView.setNumColumns(3);
-        monthgridView.setVerticalSpacing(4);
-        monthgridView.setHorizontalSpacing(4);
-
-         for (int i = 0; i < 31; i++) {
-             PDMA.numbers[i] = String.format("%d", i + 1);
-         }
-        //setPadding(2,2,2,2);
-        monthgridView.setBackgroundColor(Color.WHITE);
-
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-       //  builder.set
-         LayoutInflater inflater = this.getLayoutInflater();
-         View dialogView = inflater.inflate(R.layout.day_month_picker,null);
-         builder.setView(dialogView);
-        // PDMA.SetDays(31);
-
-
-     //   builder.setView(monthgridView);
-        builder.setTitle("( Div : "+ model.GetDivisionTitle(currentDivision)+" )    Choose Month");
-        builder.show();
-        monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Msg.Show(String.format("%d",position));
-
-                builder.dismiss();
-            }
-
-
-
-        });
-
-*/
 
 
 }   /////CLASS END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -862,3 +819,5 @@ void CloseAndSaveAttendance()
             fabVisible=!fabVisible;
 
             */
+
+
