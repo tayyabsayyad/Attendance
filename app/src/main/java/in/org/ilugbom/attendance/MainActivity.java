@@ -68,13 +68,14 @@ public class MainActivity extends AppCompatActivity
     private static final int REQUEST_CODE = 1;
     private boolean modified=false;
     private TextView FC;
+    private String ddd,mmm;
     int counter=0;
     TextAdapter TA;
     Msg msg=new Msg();
     SendBackupByEmail sbbe=new SendBackupByEmail();
 
     Model model;
-    Menu mmm;
+    Menu settingsMenu; /// 3 dot menu on left side, this variable is used to chekmark from outside menu handler
     CreateDivDialog CDD=new CreateDivDialog();
     HelpDialog HD=new HelpDialog();
     MonthlyReport MR = new MonthlyReport();
@@ -314,7 +315,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        mmm=menu;
+        settingsMenu=menu;
         return true;
     }
 
@@ -698,7 +699,7 @@ void CloseAndSaveAttendance()
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-        Msg.show("Monthly Report.pdf Created");
+        Msg.Show("Monthly Report.pdf Created");
     }
 
 
@@ -715,20 +716,30 @@ void CloseAndSaveAttendance()
         monthgridView.setBackgroundColor(Color.WHITE);
         // Set grid view to alertDialog
         final AlertDialog builder = new AlertDialog.Builder(this).create();
-//        builder.setCancelable(true);
+        builder.setCancelable(true);
         builder.setView(monthgridView);
         builder.setTitle("( Div : "+ model.GetDivisionTitle(currentDivision)+" )    Choose Month");
         builder.show();
         monthgridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                String month=String.format("%02d",position+1);
-                String div=model.GetDivisionTitle(currentDivision);
+                mmm=String.format("%02d",position+1);
+                ddd=model.GetDivisionTitle(currentDivision);
 
-                Msg.show(div);Msg.show(month);
-                PrintMonthlyReport(div,month);
-                builder.dismiss();
+                Msg.Show("Creating "+ddd +" " +mmm+" Report ...");
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        PrintMonthlyReport(ddd,mmm);
+                    }
+                }, 400);
+
+                builder.cancel();
             }
         });
     }
@@ -787,7 +798,7 @@ void    SetHistoryMode()
     void JumpOnDate(String DayMonth)
     {
       if(modified) { Msg.Show("Save Before Jump"); return;}
-      if(!HistoryMode) { SetHistoryMode(); mmm.getItem(4).setChecked(true); }
+      if(!HistoryMode) { SetHistoryMode(); settingsMenu.getItem(4).setChecked(true); }
 
       if(model.DateArray.size()>0)
       {   boolean found=false;
