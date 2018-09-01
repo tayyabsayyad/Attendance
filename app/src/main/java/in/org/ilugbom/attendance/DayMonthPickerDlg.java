@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 
+import java.util.Calendar;
+
 /**
  * Created by Milind on 8/28/18.
  */
@@ -30,6 +32,8 @@ public class DayMonthPickerDlg extends AppCompatActivity
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.day_month_picker);
 
+        Calendar cal = Calendar.getInstance();
+        monthindex = cal.get(Calendar.MONTH);
 
 
         GridView gView= (GridView)dialog.findViewById(R.id.grid31);
