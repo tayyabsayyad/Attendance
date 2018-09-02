@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_division)
-        {
+        {  if (!ClearedHistoryMode()) return true; //Switch off history mode if ON
             //Msg.show("Settings");
             CDD.editmode=false;
             // Toast.makeText(getBaseContext(), "create", Toast.LENGTH_SHORT).show();
@@ -347,13 +347,13 @@ public class MainActivity extends AppCompatActivity
 
 
         if (id==R.id.action_edit_div)
-        {
+        {   if (!ClearedHistoryMode()) return true;
             EditDivision();
         }
 
 
         if (id == R.id.action_delete_div)
-        {
+        {   if (!ClearedHistoryMode()) return true;
             DeleteDivision();
             return true;
         }
@@ -811,6 +811,26 @@ void    SetHistoryMode()
 
     }
 
+
+    boolean ClearedHistoryMode()
+    {
+        if(HistoryMode)   /// if historymode is ON
+        { if(modified) {  Msg.Show("History modified, Save or Discard First !");
+            return false;}
+            SetHistoryMode(); // switch off history
+            settingsMenu.getItem(4).setChecked(false);
+            return true;
+        }
+        ////  Now History Mode is Off
+        if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
+            return false; }
+        /// Now Attendance is off OR Attendance is ON but not Modified
+        /// Make Green in any case
+        fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+        AttendanceInProgress=false;
+        return true;  ///cleard all cases preferencace can be saved
+
+    }
 
 
 }   /////CLASS END
