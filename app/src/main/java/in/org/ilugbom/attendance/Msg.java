@@ -37,7 +37,7 @@ public class Msg
      //   image.setImageResource(R.drawable.fab_blue_green72);
      // set a message
         TextView text = (TextView) layout.findViewById(R.id.text);
-        text.setText(msg+" "); //give right padding one space
+        text.setText("  "+msg+"  "); //give right padding one space
 
 // Toast...
         Toast toast = new Toast(MA);

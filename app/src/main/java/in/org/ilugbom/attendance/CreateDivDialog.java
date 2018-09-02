@@ -68,15 +68,14 @@ public class CreateDivDialog
                 String classdiv=ClassDiv.getText().toString();
 
                 if(frollstring.length()==0 || lrollstring.length()==0)
-                { Msg.show("Invlid Roll"); return; }
+                { Msg.Show("Invlid Roll"); return; }
 
                 int  in1 = new Integer(frollstring);
                 int  in2 = new Integer(lrollstring);
                 int strength=in2-in1+1;
                 if(strength>500) Msg.show("Class Strength > 500");
                 if(classdiv.length()==0) Msg.show("Class-Division Empty");
-//              show(String.format("%d",strength));
-                Msg.show(String.format("Strength - %d",strength));
+                Msg.Show(String.format("Strength - %d",strength));
                 if(editmode) ///if true add new division to Divisions Array
                 {
                     model.Divisions.set(MainActivity.currentDivision, classdiv + "#" + frollstring + "-" + lrollstring + "#" + "PP");
@@ -156,7 +155,7 @@ public class CreateDivDialog
         editor.putString("key4",subject);
         editor.putString("key5", email);
         editor.commit();
-        Msg.show(alldivisions);
+        Msg.Show("Saved In Preferences");
 
     }
 
@@ -169,7 +168,6 @@ public class CreateDivDialog
         subject=settings.getString("key4","Subject");
         email = settings.getString("key5", "Email");
 
-        //Msg.show(alldivisions);
         if(alldivisions.contains("│"))
         {model.Divisions.clear();
             String temp[];
