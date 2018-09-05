@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity
     MonthlyReport MR = new MonthlyReport();
 
     DayMonthPickerDlg dmpd=new DayMonthPickerDlg();
+    DivMonthPickerDlg divmpd=new DivMonthPickerDlg();
 
     FloatingActionButton fab;
     boolean fabVisible=true;
@@ -120,6 +121,8 @@ public class MainActivity extends AppCompatActivity
         msg.SetMA(this);
         sbbe.SetMA(this);
         dmpd.SetMA(this);
+        divmpd.SetMA(this);
+
         FC=(TextView) findViewById(R.id.FabCounter);
 
         TA = new TextAdapter(this);
@@ -401,14 +404,16 @@ public class MainActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.nav_printmonthlyreport :
-
+                divmpd.SetDiv(model.Divisions,currentDivision);
+                divmpd.ShowDivMonthDailog();
+/*
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         showAlertDialog();
                     }
                 }, 300);
-
+*/
             break;
 
             case R.id.nav_jump :  dmpd.ShowDayMonthDailog(); break;
