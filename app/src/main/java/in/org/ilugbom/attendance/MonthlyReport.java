@@ -96,8 +96,8 @@ public class MonthlyReport {
         cell.setBorder(PdfPCell.NO_BORDER);
         table.setWidthPercentage(100);
         table.addCell(cell);
-
-        cell = new PdfPCell(new Phrase("N. R. SWAMY COLLEGE OF COMMERCE & ECONOMICS AND Smt. THIRUMALAI COLLEGE OF SCIENCE - WADALA"));
+        String CollNem = CDD.college;
+        cell = new PdfPCell(new Phrase(CollNem.toUpperCase()));
         cell.setBorder(PdfPCell.NO_BORDER);
         cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
         table.addCell(cell);
@@ -108,7 +108,7 @@ public class MonthlyReport {
 
     public void matrixtoPdf(Document document) throws DocumentException{
 
-        float colwidth[] = {4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,5};
+        float colwidth[] = {4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,5};
         float colwidth1[] = {7,9,4,6,5,5,5,5};
 
         PdfPTable table1 = new PdfPTable(colwidth1);
@@ -160,11 +160,30 @@ public class MonthlyReport {
             }
 
             for(int i = 0; i < PresencyLine.size(); i++){
+
                 date = DateArray.get(i).substring(0,2);
                 AttendenceData = PresencyLine.get(i);
                 for(int j = 0; j < TotNoStnts; j++){
                     matrix[j][Integer.parseInt(date)+1] = Character.toString(AttendenceData.charAt(j));
                 }
+
+            }
+
+            float percent, Total;
+            for(int i = 0; i < TotNoStnts; i++){
+                int numofPs = 0, numofAs = 0 ;
+
+                for(int j = 0; j < 31; j++){
+                    if(matrix[i][j].contains("P")) numofPs++;
+                    if(matrix[i][j].contains("A")) numofAs++;
+                }
+
+                Total = numofAs+numofPs;
+                //              matrix[i][33] = String.valueOf(numofPs)+"/"+String.valueOf(Total);
+                matrix[i][33] = String.valueOf(numofPs);
+                percent = numofPs*100/Total;
+                String percentage = String.format("%.2f",percent);
+                matrix[i][34] = String.valueOf(percentage);
             }
 
             for(int i = 0; i < TotNoStnts; i++){
