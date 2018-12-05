@@ -108,7 +108,7 @@ public class MonthlyReport {
 
     public void matrixtoPdf(Document document) throws DocumentException{
 
-        float colwidth[] = {4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,5};
+        float colwidth[] = {4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,5};
         float colwidth1[] = {7,9,4,6,5,5,5,5};
 
         PdfPTable table1 = new PdfPTable(colwidth1);
