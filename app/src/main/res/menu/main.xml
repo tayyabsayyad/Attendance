@@ -28,7 +28,6 @@
         app:showAsAction="never" />
 
 
-
     <item
         android:id="@+id/action_history_mode"
         android:orderInCategory="500"

@@ -15,6 +15,13 @@
         android:padding="20dp">
         <EditText
             android:id="@+id/college"
+            android:inputType="textMultiLine"
+            android:enabled="true"
+            android:minLines="6"
+            android:maxLines="6"
+            android:isScrollContainer="true"
+            android:focusable="true"
+
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
@@ -22,7 +29,6 @@
             android:hint="Name  of the Institute"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"
-            android:maxLines="1"
             android:textColor="#000000"
             android:textSize="18sp"
             android:background="@drawable/edittext_background"
@@ -32,13 +38,19 @@
 
         <EditText
             android:id="@+id/teacher"
+            android:inputType="textMultiLine"
+            android:enabled="true"
+            android:minLines="6"
+            android:maxLines="6"
+            android:isScrollContainer="true"
+            android:focusable="true"
+
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
             android:layout_marginBottom="20dp"
             android:hint="Your Name"
-            android:maxLines="1"
             android:textColor="#000000"
             android:textSize="18sp"
             android:background="@drawable/edittext_background"
@@ -50,13 +62,19 @@
 
         <EditText
             android:id="@+id/subject"
+            android:inputType="textMultiLine"
+
+            android:enabled="true"
+            android:minLines="6"
+            android:maxLines="6"
+            android:isScrollContainer="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
             android:layout_marginBottom="20dp"
             android:hint="Your Subject"
-            android:maxLines="1"
             android:textColor="#000000"
             android:textSize="18sp"
             android:background="@drawable/edittext_background"
@@ -66,6 +84,12 @@
 
         <EditText
             android:id="@+id/email"
+            android:inputType="textMultiLine"
+            android:enabled="true"
+            android:minLines="6"
+            android:maxLines="6"
+            android:isScrollContainer="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:paddingStart="50dp"
@@ -74,7 +98,6 @@
             android:hint="Email For Backup"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:maxLines="1"
             android:background="@drawable/edittext_background"
             android:textColorHint="#aeaeae"
             >
