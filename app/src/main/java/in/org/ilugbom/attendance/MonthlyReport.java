@@ -33,7 +33,7 @@ import javax.security.auth.Subject;
 import static android.media.CamcorderProfile.get;
 import static in.org.ilugbom.attendance.MainActivity.currentDivision;
 
-public class MonthlyReport {
+public class MonthlyReport{
 
     String DIV,MONT;
     void SetDIVMON(String div,String month) { DIV=div; MONT=month; }
@@ -256,7 +256,7 @@ public class MonthlyReport {
 
                 if (!AttendanceRecord.contains("#")) continue;
                 temp = AttendanceRecord.split("#");
-                if(temp[0].contains(month) &&  temp[1].contains(div)) {
+                if(temp[0].contains(month) &&  temp[1].contains(div)){
                     DateArray.add(temp[0]);
                     Divisions.add(temp[1]);
                     RollNos.add(temp[2]);
@@ -269,5 +269,5 @@ public class MonthlyReport {
             //    Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
-
 }
+

@@ -19,6 +19,7 @@ import java.util.Calendar;
  * Created by Milind on 7/3/18.
  */
 
+
 public class Model
 {
     ArrayList<String> Divisions = new ArrayList<String>();
@@ -41,6 +42,10 @@ public class Model
         return temp[1];
     }
 
+
+
+    // default added here
+    // Add devision here with the missing numbers
 
     void LoadDivisions() {
         Divisions.add("IX-A#5001-5120#P");
@@ -178,20 +183,3 @@ public class Model
 
 
 }  // end Model class
-
-///////////////////// Extras
-//////////////////////////////////////////////////////////////////////
-///To do
-
-        /*
-            ///save pdf
-            WritePDF wp = new WritePDF();
-            wp.SetData(CollegeName1,Clas+"-"+Div,Subject,
-                    Examiner,Exam,sMax,Date,PTstr,Set.get(1),Mrk.get(1));
-            wp.SetRollArray(Roll,Mrk);
-            String pdfname=FileNameWithPath.replaceAll(".mrk",".pdf");
-            wp.write(pdfname);
-
-            showtop("Saved in mrk and pdf format");
-            //	showtop(pdfname);
-*/

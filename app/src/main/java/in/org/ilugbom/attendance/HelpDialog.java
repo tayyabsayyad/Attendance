@@ -1,3 +1,6 @@
+// Displays Help.html file from the assets
+
+
 package in.org.ilugbom.attendance;
 
 import android.app.Dialog;

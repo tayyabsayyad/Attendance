@@ -6,7 +6,6 @@
     >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
@@ -64,6 +63,29 @@
             >
         </EditText>
 
+        <EditText
+            android:id="@+id/missingroll"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="20dp"
+            android:hint="Missing Rolls"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:background="@drawable/edittext_background"
+            android:textColorHint="#aeaeae"
+            >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Example : 10,15,49,50,78,80" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +119,3 @@
     </LinearLayout>
 
 </ScrollView>
-
-
-
-

@@ -60,11 +60,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
 
-    private static final String TAG = "MainActivity";  //for rutime storage permission code
+    private static final String TAG = "MainActivity";  //for run time storage permission code
     private static final int REQUEST_CODE = 1;
     private boolean modified=false;
     private TextView FC;
@@ -124,6 +123,8 @@ public class MainActivity extends AppCompatActivity
         divmpd.SetMA(this);
 
         FC=(TextView) findViewById(R.id.FabCounter);
+
+        //log here
 
         TA = new TextAdapter(this);
         final GridView gridView = (GridView) findViewById(R.id.gridview);
@@ -388,8 +389,6 @@ public class MainActivity extends AppCompatActivity
           //  Msg.show("History - Del Record");
             return true;
         }
-
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -659,6 +658,8 @@ void CloseAndSaveAttendance()
 
     }
 
+
+
     void DisplayDivision()   //// Display division with index currentdivision
     {   TA.Divisions.clear();
         TA.DisplayDivision(model.Divisions.get(currentDivision));
@@ -773,9 +774,9 @@ void CloseAndSaveAttendance()
     }
 
 
-void    SetHistoryMode()
+void SetHistoryMode()
     {
-        if(HistoryMode) //if historymode is true then switch it off and load opening screen
+        if(HistoryMode) //if history mode is true then switch it off and load opening screen
         {
             HistoryMode=false;
             model.Divisions.clear();
@@ -802,73 +803,64 @@ void    SetHistoryMode()
 
     void JumpOnDate(String DayMonth)
     {
-      if(modified) { Msg.Show("Save Before Jump"); return;}
-      if(!HistoryMode) { SetHistoryMode(); settingsMenu.getItem(4).setChecked(true); }
 
-      if(model.DateArray.size()>0)
-      {   boolean found=false;
+        if(modified)
+        {
+            Msg.Show("Save Before Jump");
+            return;
+        }
+
+        if(!HistoryMode)
+        {
+            SetHistoryMode();
+            settingsMenu.getItem(4).setChecked(true);
+        }
+
+        if(model.DateArray.size()>0)
+        {
+          boolean found=false;
           for(int i=0;i<model.DateArray.size();i++)
           if(model.DateArray.get(i).contains(DayMonth))
-            {currentDivision=i; found=true; }
+            {
+                currentDivision=i;
+                found=true;
+            }
+
           DisplayDivision();
           if(!found) Msg.Show(DayMonth+"  Not Found");
-      }
+        }
 
     }
 
 
     boolean ClearedHistoryMode()
     {
-        if(HistoryMode)   /// if historymode is ON
-        { if(modified) {  Msg.Show("History modified, Save or Discard First !");
-            return false;}
+        if(HistoryMode)   /// if history mode is ON
+        {
+            if(modified)
+            {
+                Msg.Show("History modified, Save or Discard First !");
+                return false;
+            }
+
             SetHistoryMode(); // switch off history
             settingsMenu.getItem(4).setChecked(false);
             return true;
         }
+
         ////  Now History Mode is Off
-        if(modified) {  Msg.Show("Attendance Modified, Save or Discard First !");
-            return false; }
+        if(modified)
+        {
+            Msg.Show("Attendance Modified, Save or Discard First !");
+            return false;
+        }
         /// Now Attendance is off OR Attendance is ON but not Modified
         /// Make Green in any case
+
         fab.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
         AttendanceInProgress=false;
         return true;  ///cleard all cases preferencace can be saved
 
     }
 
-
-}   /////CLASS END
-
-
-
-
-///////////////////////// <<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>///////////////////////////////
-//////////////////////////<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>/////////////////////////////
-/////////////////////////// Extra Code  Snippets
-
-
-/*
-            if(!AttendanceInProgress) LL.setBackgroundColor(Color.RED);
-            else LL.setBackgroundColor( getResources().getColor(R.color.SecondBar));
-
-            AttendanceInProgress=!AttendanceInProgress;
-*/
-
-// Change FAB mail icon
-//fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_launcher_round2));
-
-            /*
-            hide and show FAB toggle
-
-            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            fab.setLayoutParams(p);
-            if(fabVisible) fab.setVisibility(View.GONE);
-            else
-                fab.setVisibility(View.VISIBLE);
-            fabVisible=!fabVisible;
-
-            */
-
-
+}

@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Add Division</string>
-
+    <string name="pref_email_hint"> Email for Backup </string>
+    <string name="pref_your_name">Name of the Institute</string>
 
 </resources>

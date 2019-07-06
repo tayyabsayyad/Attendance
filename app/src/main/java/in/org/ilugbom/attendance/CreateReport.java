@@ -6,9 +6,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- * Created by student on 8/13/18.
- */
 
 public class CreateReport
 {
@@ -33,8 +30,11 @@ public class CreateReport
             {
                 if (!aDataRow.contains("#")) continue;
                 temp = aDataRow.split("#");
+
                 if (temp.length < 4) continue;
+
                 if(!temp[1].contains(divtitle)) continue;
+
                 Divisions.add(temp[3]);
              }
             myReader.close();

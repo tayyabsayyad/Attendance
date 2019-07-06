@@ -53,7 +53,6 @@ public class DayMonthPickerDlg extends AppCompatActivity
 
         dialog.show();
 
-
         final Button MidTitleButton= (Button) dialog.findViewById(R.id.monthTitle);
         MidTitleButton.setText(Month[monthindex]);
 
@@ -77,19 +76,6 @@ public class DayMonthPickerDlg extends AppCompatActivity
             }
         });
 
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
 }

@@ -19,7 +19,8 @@ import java.util.Calendar;
  */
 
 public class DivMonthPickerDlg extends AppCompatActivity
-{    String[] monthnames = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+{
+    String[] monthnames = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
     MainActivity MA;
     GridView g12;
 
@@ -27,7 +28,12 @@ public class DivMonthPickerDlg extends AppCompatActivity
 
   //  String Month[]={"XI-A","XI-B","XI-C"};
     int divindex=0;   ////div index
-    void SetMA(MainActivity MA){this.MA=MA;}
+
+    void SetMA(MainActivity MA)
+    {
+        this.MA=MA;
+    }
+
     void SetDiv(ArrayList<String> ar,int currentdiv)
     {   divindex=currentdiv;
         String temp[];
@@ -38,6 +44,7 @@ public class DivMonthPickerDlg extends AppCompatActivity
            }
 
     }
+
     void ShowDivMonthDailog() {
 
         final Dialog dialog = new Dialog(MA);
